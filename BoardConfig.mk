@@ -82,6 +82,7 @@ BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_wext
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wext
 WIFI_DRIVER_HAS_LGE_SOFTAP      := true
 BOARD_WPA_SUPPLICANT_DRIVER := WEXT
+TARGET_HAS_LEGACY_WLAN := true
 
 BOARD_EGL_CFG := device/lge/p970/configs/egl.cfg
 
