@@ -30,9 +30,9 @@
 #include <pixelflinger/pixelflinger.h>
 
 #ifndef BOARD_LDPI_RECOVERY
-	#include "font_10x18.h"
+    #include "font_10x18.h"
 #else
-	#include "font_7x16.h"
+    #include "font_7x16.h"
 #endif
 
 #include "minui.h"
@@ -179,7 +179,12 @@ int gr_measure(const char *s)
     return gr_font->cwidth * strlen(s);
 }
 
-int gr_text(int x, int y, const char *s, int bold)
+int gr_text(int x, int y, const char *s, ...)
+{
+    return gr_text_impl(x, y, s, 0);
+}
+
+int gr_text_impl(int x, int y, const char *s, int bold)
 {
     GGLContext *gl = gr_context;
     GRFont *font = gr_font;

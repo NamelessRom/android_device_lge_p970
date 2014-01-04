@@ -3,8 +3,14 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
+# Get the prebuilt list of APNs
+$(call inherit-product, vendor/nameless/config/gsm.mk)
+
+# Inherit from the common Open Source product configuration
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
 # Inherit from our custom product configuration
-$(call inherit-product, vendor/omni/config/common.mk)
+$(call inherit-product, vendor/nameless/config/common.mk)
 
 $(call inherit-product-if-exists, vendor/lge/p970/p970-vendor.mk)
 
@@ -129,15 +135,15 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     hwcomposer.black \
-    lights.p970 \
+    lights.black \
     audio.a2dp.default \
     audio_policy.default \
     libaudioutils \
     libtiutils \
     libion_ti \
     libomap_mm_library_jni \
-    libemoji \
-    camera.omap3
+    libemoji
+#    camera.omap3
 
 # legacy version of skia
 # fixes the app switcher previews
@@ -151,7 +157,7 @@ $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 PRODUCT_AAPT_CONFIG := normal hdpi
 
 OMNI_DEVICE := p970
-PRODUCT_NAME := omni_p970
+PRODUCT_NAME := nameless_p970
 PRODUCT_RELEASE_NAME := OptimusBlack
 PRODUCT_DEVICE := p970
 PRODUCT_BRAND := LGE

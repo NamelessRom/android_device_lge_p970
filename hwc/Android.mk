@@ -9,7 +9,7 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 LOCAL_SHARED_LIBRARIES := liblog libEGL libcutils libutils libhardware libhardware_legacy
 LOCAL_SRC_FILES := hwc.c
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE := hwcomposer.$(TARGET_BOOTLOADER_BOARD_NAME)
+LOCAL_MODULE := hwcomposer.black
 LOCAL_MODULE_TAGS := optional
 LOCAL_CFLAGS := -DLOG_TAG=\"ti_hwc\"
 # LOG_NDEBUG=0 means verbose logging enabled
