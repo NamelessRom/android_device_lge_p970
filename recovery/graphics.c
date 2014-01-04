@@ -179,7 +179,7 @@ int gr_measure(const char *s)
     return gr_font->cwidth * strlen(s);
 }
 
-int gr_text(int x, int y, const char *s, ...)
+int gr_text(int x, int y, const char *s, int bold)
 {
     return gr_text_impl(x, y, s, 0);
 }
