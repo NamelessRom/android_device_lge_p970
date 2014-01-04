@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <bool name="config_animateScreenLights">false</bool>
+
+   <!-- The default iface on which to monitor data use -->
+    <string name="config_datause_iface">vsnet0</string>
+
+    <bool name="config_disableMenuKeyInLockScreen">true</bool>
+
+    <bool name="config_automatic_brightness_available">true</bool>
+
+    <!-- These are all dummies, but need to be present to enable UI control of auto-brightness
+         The actual control and values are all in-kernel -->
+    <integer-array name="config_autoBrightnessLevels">
+        <item>1</item>
+        <item>5</item>
+    </integer-array>
+    <!-- Array of output values for LCD backlight corresponding to the LUX values
+         in the config_autoBrightnessLevels array.  This array should have size one greater
+         than the size of the config_autoBrightnessLevels array.
+    -->
+    <integer-array name="config_autoBrightnessLcdBacklightValues">
+        <item>25</item>
+        <item>55</item>
+        <item>70</item>
+    </integer-array>
+
+    <!-- Array of output values for button backlight corresponding to the LUX values
+         in the config_autoBrightnessLevels array.  This array should have size one greater
+         than the size of the config_autoBrightnessLevels array.
+    -->
+    <integer-array name="config_autoBrightnessButtonBacklightValues">
+        <item>255</item>
+        <item>255</item>
+        <item>0</item>
+    </integer-array>
+
+    <!-- Array of output values for keyboard backlight corresponding to the LUX values
+         in the config_autoBrightnessLevels array.  This array should have size one greater
+         than the size of the config_autoBrightnessLevels array.
+         This must be overridden in platform specific overlays -->
+
+    <integer-array name="config_autoBrightnessKeyboardBacklightValues">
+        <item>255</item>
+        <item>255</item>
+        <item>0</item>
+    </integer-array>
+
+    <string-array translatable="false" name="config_tether_usb_regexs">
+    <item>"rndis0"</item>
+    </string-array>
+
+    <!-- Array of ConnectivityManager.TYPE_xxxx values allowable for tethering -->
+    <!-- Common options are [1, 4] for TYPE_WIFI and TYPE_MOBILE_DUN or
+                      <!== [0,1,5,7] for TYPE_MOBILE, TYPE_WIFI, TYPE_MOBILE_HIPRI and TYPE_BLUETOOTH -->
+    <integer-array translatable="false" name="config_tether_upstream_types">
+        <item>0</item>
+        <item>1</item>
+        <item>5</item>
+        <item>7</item>
+    </integer-array>
+
+    <string-array translatable="false" name="config_tether_wifi_regexs">
+        <item>"wl0.1"</item>
+        <item>"wlan0"</item>
+    </string-array>
+
+    <!-- Boolean indicating whether the start command should be called on the wireless interface
+                  when starting the SoftAp -->
+    <bool name="config_wifiApStartInterface">true</bool>
+
+    <!-- Default color for notification LED. -->
+    <color name="config_defaultNotificationColor">#ff0000ff</color>
+
+    <!-- Default LED on time for notification LED in milliseconds. -->
+    <integer name="config_defaultNotificationLedOn">500</integer>
+
+    <!-- Default LED off time for notification LED in milliseconds. -->
+    <integer name="config_defaultNotificationLedOff">2000</integer>
+
+    <!-- Default value for led color when battery is low on charge -->
+    <integer name="config_notificationsBatteryLowARGB">0xFF000000</integer>
+
+    <!-- Default value for led color when battery is medium charged -->
+    <integer name="config_notificationsBatteryMediumARGB">0xFF000000</integer>
+
+    <!-- Default value for led color when battery is fully charged -->
+    <integer name="config_notificationsBatteryFullARGB">0xFFFF0000</integer>
+
+    <!-- Default value for LED on time when the battery is low on charge in miliseconds -->
+    <integer name="config_notificationsBatteryLedOn">0</integer>
+
+    <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
+    <bool name="config_intrusiveNotificationLed">true</bool>
+
+    <!-- Disable lockscreen translucent decor by default -->
+    <bool name="config_enableLockScreenTranslucentDecor">true</bool>
+
+    <!-- Device configuration setting the /proc/sys/vm/extra_free_kbytes tunable
+         in the kernel. Default is 3 full-screen 32 bpp buffers, i.e. 4500KB
+         on Nexus S. Let's double this value. -->
+    <integer name="config_extraFreeKbytesAbsolute">9000</integer>
+
+</resources>

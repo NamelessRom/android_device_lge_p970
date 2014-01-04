@@ -1,0 +1,11 @@
+# Android fstab file.
+#<src>                                                  <mnt_point>         <type>    <mnt_flags and options>                               <fs_mgr_flags>
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+/dev/block/mmcblk0p4        /recovery           emmc        defaults    recoveryonly
+/dev/block/mmcblk0p3        /boot               emmc        defaults    recoveryonly
+/dev/block/mmcblk0p9        /data               ext4        defaults    recoveryonly
+/dev/block/mmcblk0p10       /cache              ext4        defaults    recoveryonly
+/dev/block/mmcblk0p8        /system             ext4        defaults    recoveryonly
+
+/devices/platform/omap/omap_hsmmc.0/mmc_host    auto		auto	    defaults    voldmanaged=sdcard0:auto

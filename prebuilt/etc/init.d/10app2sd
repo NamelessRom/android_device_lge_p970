@@ -1,0 +1,4 @@
+#!/system/bin/sh
+
+sleep 2
+mount -t vfat -o umask=0000 /dev/block/vold/179:49 /mnt/secure/asec
