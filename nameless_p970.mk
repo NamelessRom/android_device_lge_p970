@@ -137,7 +137,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     audio.a2dp.default  \
     audio_policy.default \
-    audio.primary.omap3
+    audio.primary.black
 
 
 PRODUCT_PACKAGES += \
