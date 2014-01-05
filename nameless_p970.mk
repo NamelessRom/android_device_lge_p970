@@ -133,10 +133,15 @@ PRODUCT_PACKAGES += \
     libOMX.TI.AMR.decode \
     libOMX.TI.G726.decode
 
+# Sound
+PRODUCT_PACKAGES += \
+    audio.a2dp.default  \
+    audio_policy.default \
+    audio.primary.omap3
+
+
 PRODUCT_PACKAGES += \
     lights.black \
-    audio.a2dp.default \
-    audio_policy.default \
     libaudioutils \
     libtiutils \
     libion_ti \
@@ -149,8 +154,6 @@ PRODUCT_PACKAGES += \
 # fixes the app switcher previews
 PRODUCT_PACKAGES += \
     libskia_legacy
-
-$(call inherit-product, build/target/product/full.mk)
 
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
