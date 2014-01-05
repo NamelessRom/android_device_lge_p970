@@ -134,7 +134,6 @@ PRODUCT_PACKAGES += \
     libOMX.TI.G726.decode
 
 PRODUCT_PACKAGES += \
-    hwcomposer.black \
     lights.black \
     audio.a2dp.default \
     audio_policy.default \
@@ -143,6 +142,7 @@ PRODUCT_PACKAGES += \
     libion_ti \
     libomap_mm_library_jni \
     libemoji
+#    hwcomposer.black \
 #    camera.omap3
 
 # legacy version of skia
