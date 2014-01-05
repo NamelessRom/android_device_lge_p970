@@ -99,9 +99,7 @@ BOARD_CUSTOM_GRAPHICS := ../../../device/lge/p970/recovery/graphics.c
 TARGET_RECOVERY_FSTAB := device/lge/p970/configs/fstab.black
 
 BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/lge/p970/vibrator.c
-COMMON_GLOBAL_CFLAGS += -DHAS_CONTEXT_PRIORITY -DDONT_USE_FENCE_SYNC
-
-COMMON_GLOBAL_CFLAGS += -DPRODUCT_LG_P970
+COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB -DHAS_CONTEXT_PRIORITY -DDONT_USE_FENCE_SYNC
 
 BOARD_SYSFS_LIGHT_SENSOR := "/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/leds/lcd-backlight/als"
 
