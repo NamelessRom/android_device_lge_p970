@@ -150,8 +150,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # We indeed have pre KitKat blobs
 BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
 
-# No, we dont want SET_METADATA -.-
-USE_SET_METADATA := false
+# No, we dont want METADATA -.-
+SKIP_SET_METADATA := true
 
 # LTO ?
 BOARD_HARDWARE_CLASS := device/lge/p970/cmhw/
