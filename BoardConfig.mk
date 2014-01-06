@@ -14,7 +14,13 @@ TARGET_ARCH_VARIANT_CPU := cortex-a8
 TARGET_ARCH_VARIANT_FPU := neon
 TARGET_CPU_VARIANT := cortex-a8
 TARGET_ARCH_LOWMEM := true
-OMAP_ENHANCEMENT := true
+ARCH_ARM_HAVE_ARMV7A := tru
+ARCH_ARM_HAVE_TLS_REGISTER := true
+
+TARGET_BOOTLOADER_BOARD_NAME := p970
+TARGET_PROVIDES_INIT_TARGET_RC := true
+TARGET_NO_BOOTLOADER := true
+TARGET_OMAP3 := true
 
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
@@ -25,19 +31,18 @@ TARGET_thumb_CFLAGS := -mthumb \
                         -fomit-frame-pointer \
                         -fstrict-aliasing
 
-TARGET_BOOTLOADER_BOARD_NAME := p970
-
 BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_PAGE_SIZE := 0x00000800
+
+OMAP_ENHANCEMENT := true
 
 ifdef OMAP_ENHANCEMENT
 COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP3 -DOMAP_ENHANCEMENT_CPCAM -DOMAP_ENHANCEMENT_VTC
 endif
 
-# Try to build the kernel
+# Kernel
 TARGET_KERNEL_CONFIG := custom_p970_defconfig
-# Keep this as a fallback
 TARGET_PREBUILT_KERNEL := device/lge/p970/kernel
 TARGET_RECOVERY_INITRC := device/lge/p970/recovery/init-recovery.rc
 
@@ -57,9 +62,13 @@ HARDWARE_OMX := true
 ifdef HARDWARE_OMX
 OMX_JPEG := true
 OMX_VENDOR := ti
+TARGET_USE_OMX_RECOVERY := true
+TARGET_USE_OMAP_COMPAT  := true
+BUILD_WITH_TI_AUDIO := 1
+BUILD_PV_VIDEO_ENCODERS := 1
 OMX_VENDOR_INCLUDES := \
-   hardware/ti/omx/system/src/openmax_il/omx_core/inc \
-   hardware/ti/omx/image/src/openmax_il/jpeg_enc/inc
+   hardware/ti/omap3/omx/system/src/openmax_il/omx_core/inc \
+   hardware/ti/omap3/omx/image/src/openmax_il/jpeg_enc/inc
 OMX_VENDOR_WRAPPER := TI_OMX_Wrapper
 BOARD_OPENCORE_LIBRARIES := libOMX_Core
 BOARD_OPENCORE_FLAGS := -DHARDWARE_OMX=1
@@ -109,6 +118,8 @@ BUILD_WITH_ALSA_UTILS := true
 BOARD_SYSFS_LIGHT_SENSOR := "/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/leds/lcd-backlight/als"
 
 COMMON_GLOBAL_CFLAGS += -DBOARD_CHARGING_CMDLINE_NAME='"rs"' -DBOARD_CHARGING_CMDLINE_VALUE='"c"'
+BOARD_ALLOW_SUSPEND_IN_CHARGER := true
+
 ## Radio fixes
 BOARD_RIL_CLASS := ../../../device/lge/p970/ril/
 
@@ -151,7 +162,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.hwui.disable_scissor_opt=true
 
 # We indeed have pre KitKat blobs
-BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
+# BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
 
 # No, we dont want METADATA -.-
 SKIP_SET_METADATA := true
@@ -165,9 +176,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.jit.codecachesize=0
 
 # Bootanimation
+TARGET_SCREEN_HEIGHT := 800
+TARGET_SCREEN_WIDTH := 480
 # TARGET_BOOTANIMATION_PRELOAD := true
 # TARGET_BOOTANIMATION_TEXTURE_CACHE := false
 
-# Explicitly enable libart
-PRODUCT_RUNTIMES += runtime_libdvm_default 
-PRODUCT_RUNTIMES += runtime_libart
+# Misc Flags
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/omap/musb-omap2430/musb-hdrc/gadget/lun%d/file"
