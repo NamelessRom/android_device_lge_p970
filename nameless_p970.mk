@@ -33,6 +33,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml
 
+## Audio configuration
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/audio/asound.conf:system/etc/asound.conf \
+    $(LOCAL_PATH)/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/tinyhw/tiny_hw.xml:system/etc/tiny_hw.xml
+
 # frandom
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/init.d/10app2sd:system/etc/init.d/10app2sd
@@ -79,10 +86,6 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/Hookkey.kl:system/usr/keylayout/Hookkey.kl
-
-## Alsa configs
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/asound.conf:system/etc/asound.conf
 
 # Charger mode
 PRODUCT_PACKAGES += \
