@@ -4,7 +4,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 # Get the prebuilt list of APNs
-$(call inherit-product, vendor/nameless/config/gsm.mk)
+$(call inherit-product, vendor/nameless/config/apns.mk)
 
 # Inherit from the common Open Source product configuration
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
@@ -101,6 +101,9 @@ PRODUCT_PACKAGES += \
 # Add Extra Packages
 #PRODUCT_PACKAGES += \
 #    Torch
+
+# Inherit the SIM Toolkit
+PRODUCT_PACKAGES += Stk
 
 # OMX components
 PRODUCT_PACKAGES += \
