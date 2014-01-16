@@ -142,6 +142,7 @@ PRODUCT_PACKAGES += \
 # Sound
 PRODUCT_PACKAGES += \
     audio.a2dp.default  \
+    audio.usb.default \
     audio_policy.default \
     audio.primary.black
 
