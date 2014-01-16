@@ -48,6 +48,7 @@ on fs
     chmod 0771 /data
 
     mount_all fstab.black
+    swapon_all fstab.black
 
 #[LGE_star]Hyunwoong.ahn^M
     mount ext3 /dev/block/mmcblk0p6 /dvp/hwkey nosuid nodev
