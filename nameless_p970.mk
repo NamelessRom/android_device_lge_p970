@@ -147,6 +147,7 @@ PRODUCT_PACKAGES += \
     audio.primary.black
 
 PRODUCT_PACKAGES += \
+    hwcomposer.omap3 \
     camera.black \
     lights.black \
     libaudioutils \
@@ -154,7 +155,6 @@ PRODUCT_PACKAGES += \
     libion_ti \
     libomap_mm_library_jni \
     libemoji
-#    hwcomposer.black \
 
 # legacy version of skia
 # fixes the app switcher previews
