@@ -144,6 +144,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Audio
 # BOARD_USE_HARDCODED_FAST_TRACK_LATENCY_WHEN_DENIED := 160
 # LEGACY_LPA := true
+BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
+COMMON_GLOBAL_CFLAGS += -DAUDIO_LEGACY_HACK
 
 # EGL
 ENABLE_WEBGL := true
@@ -161,9 +163,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.bq.gpu_to_cpu_unsupported=true \
 	dalvik.vm.debug.alloc=0 \
 	ro.hwui.disable_scissor_opt=true
-
-# We indeed have pre KitKat blobs
-# BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
 
 # No, we dont want METADATA -.-
 SKIP_SET_METADATA := true
