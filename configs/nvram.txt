@@ -37,7 +37,7 @@ rssisav2g=0x3,0x3,0x3
 bxa2g=0
 
 # country code
-ccode=ALL
+ccode=EU
 cctl=0x0
 cckdigfilttype=1
 ofdmdigfilttype=1
@@ -54,7 +54,7 @@ nocrc=1
 
 #Host wake up
 sd_gpout=0
-sd_gpval=0 
+sd_gpval=0
 
 #for mfgc
 otpimagesize=182
