@@ -141,6 +141,7 @@ PRODUCT_PACKAGES += \
     lights.black \
     audio.a2dp.default \
     audio_policy.default \
+    audio.usb.default \
     libaudioutils \
     libtiutils \
     libion_ti \
