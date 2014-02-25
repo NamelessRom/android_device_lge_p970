@@ -1,4 +1,4 @@
 #!/system/bin/sh
 
 sleep 2
-mount -t vfat -o umask=0000 /dev/block/vold/179:49 /mnt/secure/asec
+mount -t vfat -o umask=0000,uid=1000,gid=1015,utf8 /dev/block/vold/179:49 /mnt/secure/asec
