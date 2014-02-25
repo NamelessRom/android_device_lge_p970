@@ -12,8 +12,8 @@ rild.libpath=/system/lib/lge-ril.so
 rild.libargs=-d /dev/ttyspi0
 mobiledata.interfaces=vsnet0,vsnet1
 ro.telephony.ril_class=LGEInfineon
-ro.opengles.version=131072
-dalvik.vm.dexopt-data-only=1
+ro.opengles.version=196608
+dalvik.vm.dexopt-data-only=0
 ro.com.google.clientidbase=android-lge
 ro.com.google.clientidbase.ms=android-lge
 ro.com.google.clientidbase.gmm=android-lge
@@ -36,10 +36,8 @@ ro.device.front_cam=1.9 MP
 ro.device.screen_res=4 inch 480x800
 
 ## CUSTOM
-# Lower JPG quality to 95%
-ro.media.enc.jpeg.quality=95
 # Render UI with GPU
-# debug.sf.hw=1
+debug.sf.hw=1
 # Better Responsiveness & Speed
 windowsmgr.max_events_per_sec=90
 ro.max.fling_velocity=12000
@@ -52,11 +50,11 @@ ro.ril.fast.dormancy.rule=0
 # ADB Notify
 #persist.adb.notify=0
 # Increase overall touch responsiveness
-# debug.performance.tuning=1
-# video.accelerate.hw=1
-# debug.egl.profiler=1
-# debug.egl.hw=1
-# debug.composition.type=gpu
+debug.performance.tuning=1
+video.accelerate.hw=1
+debug.egl.profiler=1
+debug.egl.hw=1
+debug.composition.type=gpu
 # Photo and video recording quality tweak
 ro.media.enc.hprof.vid.bps=5500000
 ro.media.dec.jpeg.memcap=5500000
