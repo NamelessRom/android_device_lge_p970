@@ -63,6 +63,15 @@
 #define MAX(a,b)		  ((a)>(b)?(a):(b))
 #define CLAMP(x,low,high) (((x)>(high))?(high):(((x)<(low))?(low):(x)))
 
+#if defined(SCREEN_WIDTH) && defined(SCREEN_HEIGHT)
+/* This trickery is needed to get the preprocessor to stringify the expansion
+   of a macro */
+#define _STR(s)		#s
+#define STR(s)		_STR(s)
+
+#define SCREEN_RES STR(SCREEN_WIDTH) "," STR(SCREEN_HEIGHT)
+#endif
+
 struct ext_transform_t {
     __u8 rotation : 3;          /* 90-degree clockwise rotations */
     __u8 hflip    : 1;          /* flip l-r (after rotation) */
@@ -151,7 +160,7 @@ static int tv_enabled = 0;
 
 static void dump_layer(hwc_layer_1_t const* l)
 {
-    /*ALOGD("\ttype=%d, flags=%08x, handle=%p, tr=%02x, blend=%04x, {%d,%d,%d,%d}, {%d,%d,%d,%d}",
+    ALOGD("\ttype=%d, flags=%08x, handle=%p, tr=%02x, blend=%04x, {%d,%d,%d,%d}, {%d,%d,%d,%d}",
             l->compositionType, l->flags, l->handle, l->transform, l->blending,
             l->sourceCrop.left,
             l->sourceCrop.top,
@@ -160,32 +169,32 @@ static void dump_layer(hwc_layer_1_t const* l)
             l->displayFrame.left,
             l->displayFrame.top,
             l->displayFrame.right,
-            l->displayFrame.bottom);*/
+            l->displayFrame.bottom);
 }
 
 static void dump_dsscomp(struct dsscomp_setup_dispc_data *d)
 {
     unsigned i;
 
-    /*ALOGD("[%08x] set: %c%c%c %d ovls\n",
+    ALOGD("[%08x] set: %c%c%c %d ovls\n",
          d->sync_id,
          (d->mode & DSSCOMP_SETUP_MODE_APPLY) ? 'A' : '-',
          (d->mode & DSSCOMP_SETUP_MODE_DISPLAY) ? 'D' : '-',
          (d->mode & DSSCOMP_SETUP_MODE_CAPTURE) ? 'C' : '-',
-         d->num_ovls);*/
+         d->num_ovls);
 
     for (i = 0; i < d->num_mgrs; i++) {
         struct dss2_mgr_info *mi = d->mgrs + i;
-        /*ALOGD(" (dis%d alpha=%d col=%08x ilace=%d)\n",
+        ALOGD(" (dis%d alpha=%d col=%08x ilace=%d)\n",
             mi->ix,
             mi->alpha_blending, mi->default_color,
-            mi->interlaced);*/
+            mi->interlaced);
     }
 
     for (i = 0; i < d->num_ovls; i++) {
             struct dss2_ovl_info *oi = d->ovls + i;
             struct dss2_ovl_cfg *c = &oi->cfg;
-            /*if (c->zonly)
+            if (c->zonly)
                     ALOGE("ovl%d(%s z%d)\n",
                          c->ix, c->enabled ? "ON" : "off", c->zorder);
             else
@@ -197,7 +206,7 @@ static void dump_dsscomp(struct dsscomp_setup_dispc_data *d)
                          c->crop.w, c->crop.h,
                          c->rotation, c->mirror ? "+mir" : "",
                          c->win.x, c->win.y, c->win.w, c->win.h,
-                         (void *) oi->ba, (void *) oi->uv, c->stride);*/
+                         (void *) oi->ba, (void *) oi->uv, c->stride);
     }
 }
 
@@ -784,7 +793,7 @@ static int omap3_hwc_set_best_hdmi_mode(omap3_hwc_device_t *hwc_dev, __u32 xres,
     if (~best) {
         struct dsscomp_setup_display_data sdis = { .ix = 1, };
         sdis.mode = d.dis.modedb[best];
-        /*ALOGD("picking #%d", best);*/
+        ALOGD("picking #%d", best);
         /* only reconfigure on change */
         if (ext->last_mode != ~best)
             ioctl(hwc_dev->dsscomp_fd, DSSCIOC_SETUP_DISPLAY, &sdis);
@@ -985,7 +994,7 @@ static int omap3_hwc_prepare(struct hwc_composer_device_1 *dev, size_t numDispla
      */
     num_fb = num.BGR + num.RGB;
     /* hack for omap3, overlay can be active only for YUV format */
-    /* For other formats everything has to go through frame buffer */
+    /* For other formats everything has to go through frame buffer */ 
 
     if (num.NV12 && num_fb <= 1)
     {
@@ -1010,8 +1019,8 @@ static int omap3_hwc_prepare(struct hwc_composer_device_1 *dev, size_t numDispla
         hwc_dev->use_sgx = 1;
         hwc_dev->swap_rb = is_BGR(hwc_dev->fb_dev->base.format);
     }
-
-    /*if (debug) {
+  
+    if (debug) {
         ALOGD("prepare (%d) - %s (comp=%d, poss=%d/%d scaled, RGB=%d,BGR=%d,NV12=%d) (ext=%s%s%ddeg%s %dex/%dmx (last %dex,%din)\n",
              dsscomp->sync_id,
              hwc_dev->use_sgx ? "SGX+OVL" : "all-OVL",
@@ -1023,7 +1032,7 @@ static int omap3_hwc_prepare(struct hwc_composer_device_1 *dev, size_t numDispla
              hwc_dev->ext.current.rotation * 90,
              hwc_dev->ext.current.hflip ? "+hflip" : "",
              hwc_dev->ext_ovls, num.max_hw_overlays, hwc_dev->last_ext_ovls, hwc_dev->last_int_ovls);
-    }*/
+    }
 
     /* setup pipes */
     dsscomp->num_ovls = hwc_dev->use_sgx;
@@ -1189,7 +1198,7 @@ static int omap3_hwc_prepare(struct hwc_composer_device_1 *dev, size_t numDispla
                     yres != hwc_dev->ext.last_yres_used ||
                     xpy < hwc_dev->ext.last_xpy * (1.f - ASPECT_RATIO_TOLERANCE) ||
                     xpy * (1.f - ASPECT_RATIO_TOLERANCE) > hwc_dev->ext.last_xpy) {
-                    /*ALOGD("set up HDMI for %d*%d\n", xres, yres);*/
+                    ALOGD("set up HDMI for %d*%d\n", xres, yres);
                     if (omap3_hwc_set_best_hdmi_mode(hwc_dev, xres, yres, xpy)) {
                         o->cfg.enabled = 0;
                         hwc_dev->ext.current.enabled = 0;
@@ -1228,11 +1237,11 @@ static int omap3_hwc_prepare(struct hwc_composer_device_1 *dev, size_t numDispla
 
     dsscomp->mode = DSSCOMP_SETUP_DISPLAY;
     dsscomp->mgrs[0].ix = 0;
-    dsscomp->mgrs[0].alpha_blending = 1;
+    dsscomp->mgrs[0].alpha_blending = 0;
     /*
      Enable transperency key to make graphics & video layers visible together
     */
-    dsscomp->mgrs[0].trans_enabled = 0;
+    dsscomp->mgrs[0].trans_enabled = 1;
     dsscomp->mgrs[0].swap_rb = hwc_dev->swap_rb;
     dsscomp->num_mgrs = 1;
 
@@ -1245,39 +1254,11 @@ static int omap3_hwc_prepare(struct hwc_composer_device_1 *dev, size_t numDispla
     return 0;
 }
 
-static void omap3_hwc_reset_screen(omap3_hwc_device_t *hwc_dev)
-{
-    static int first_set = 1;
-    int ret;
-
-    if (first_set) {
-        first_set = 0;
-        struct dsscomp_setup_dispc_data d = {
-                .num_mgrs = 1,
-        };
-        /* remove bootloader image from the screen as blank/unblank does not change the composition */
-        ret = ioctl(hwc_dev->dsscomp_fd, DSSCIOC_SETUP_DISPC, &d);
-        if (ret)
-            ALOGW("failed to remove bootloader image");
-
-        /* blank and unblank fd to make sure display is properly programmed on boot.
-         * This is needed because the bootloader can not be trusted.
-         */
-        ret = ioctl(hwc_dev->fb_fd, FBIOBLANK, FB_BLANK_POWERDOWN);
-        if (ret)
-            ALOGW("failed to blank display");
-
-        ret = ioctl(hwc_dev->fb_fd, FBIOBLANK, FB_BLANK_UNBLANK);
-        if (ret)
-            ALOGW("failed to blank display");
-    }
-}
-
 static int omap3_hwc_set(struct hwc_composer_device_1 *dev,
         size_t numDisplays, hwc_display_contents_1_t** displays)
 {
     if (!numDisplays || displays == NULL) {
-        /*ALOGD("set: empty display list");*/
+        ALOGD("set: empty display list");
         return 0;
     }
     hwc_display_t dpy = NULL;
@@ -1294,8 +1275,6 @@ static int omap3_hwc_set(struct hwc_composer_device_1 *dev,
     int invalidate;
 
     pthread_mutex_lock(&hwc_dev->lock);
-
-    //omap3_hwc_reset_screen(hwc_dev);
 
     invalidate = hwc_dev->ext_ovls_wanted && !hwc_dev->ext_ovls;
 
@@ -1352,9 +1331,9 @@ static int omap3_hwc_set(struct hwc_composer_device_1 *dev,
         e -= snprintf(end - e, e, "%p", hwc_dev->buffers[i]);
     }
     e -= snprintf(end - e, e, "}%s\n", hwc_dev->use_sgx ? " swap" : "");
-    /*if (debug) {
+    if (debug) {
         ALOGD("%s", big_log);
-    }*/
+    }
 
     // ALOGD("set %d layers (sgx=%d)\n", dsscomp->num_ovls, hwc_dev->use_sgx);
 
@@ -1540,14 +1519,14 @@ static void handle_hotplug(omap3_hwc_device_t *hwc_dev, int state)
     }
 
     omap3_hwc_create_ext_matrix(ext);
-    /*ALOGI("external display changed (state=%d, mirror={%s tform=%ddeg%s}, dock={%s tform=%ddeg%s}, tv=%d", state,
+    ALOGI("external display changed (state=%d, mirror={%s tform=%ddeg%s}, dock={%s tform=%ddeg%s}, tv=%d", state,
          ext->mirror.enabled ? "enabled" : "disabled",
          ext->mirror.rotation * 90,
          ext->mirror.hflip ? "+hflip" : "",
          ext->dock.enabled ? "enabled" : "disabled",
          ext->dock.rotation * 90,
          ext->dock.hflip ? "+hflip" : "",
-         ext->on_tv);*/
+         ext->on_tv);
 
     pthread_mutex_unlock(&hwc_dev->lock);
 
@@ -1571,7 +1550,7 @@ static void *vsync_loop(void *param)
     setpriority(PRIO_PROCESS, 0, HAL_PRIORITY_URGENT_DISPLAY);
     memset(buf, 0, sizeof(buf));
 
-    /*ALOGI("Using sysfs mechanism for VSYNC notification");*/
+    ALOGI("Using sysfs mechanism for VSYNC notification");
 
     FD_ZERO(&exceptfds);
     FD_SET(fb0_vsync_fd, &exceptfds);
@@ -1748,6 +1727,30 @@ static int omap3_hwc_blank(struct hwc_composer_device_1 *dev, int dpy, int blank
     return 0;
 }
 
+static void omap3_hwc_reset_screen(omap3_hwc_device_t *hwc_dev)
+{
+    int ret;
+
+    struct dsscomp_setup_dispc_data d = {
+            .num_mgrs = 1,
+    };
+    /* remove bootloader image from the screen as blank/unblank does not change the composition */
+    ret = ioctl(hwc_dev->dsscomp_fd, DSSCIOC_SETUP_DISPC, &d);
+    if (ret)
+        ALOGW("failed to remove bootloader image");
+
+    /* blank and unblank fd to make sure display is properly programmed on boot.
+     * This is needed because the bootloader can not be trusted.
+     */
+    ret = ioctl(hwc_dev->fb_fd, FBIOBLANK, FB_BLANK_POWERDOWN);
+    if (ret)
+        ALOGW("failed to blank display");
+
+    ret = ioctl(hwc_dev->fb_fd, FBIOBLANK, FB_BLANK_UNBLANK);
+    if (ret)
+        ALOGW("failed to blank display");
+}
+
 static int omap3_hwc_device_open(const hw_module_t* module, const char* name,
                 hw_device_t** device)
 {
@@ -1838,19 +1841,20 @@ static int omap3_hwc_device_open(const hw_module_t* module, const char* name,
             goto done;
     }
 
-
     if (pthread_create(&hwc_dev->hdmi_thread, NULL, omap3_hwc_hdmi_thread, hwc_dev))
     {
             ALOGE("failed to create uevent listening thread (%d): %m", errno);
             err = -errno;
             goto done;
     }
+
     if (pthread_create(&hwc_dev->vsync_thread, NULL, vsync_loop, hwc_dev))
     {
             ALOGE("failed to create vsync-sysfs listening thread (%d): %m", errno);
             err = -errno;
             goto done;
     }
+
     /* get debug properties */
 
     /* see if hwc is enabled at all */
@@ -1873,12 +1877,12 @@ static int omap3_hwc_device_open(const hw_module_t* module, const char* name,
         struct hwc_rect fb_region = { .right = hwc_dev->fb_dev->base.width, .bottom = hwc_dev->fb_dev->base.height };
         hwc_dev->ext.mirror_region = fb_region;
     }
-    /*ALOGI("clone region is set to (%d,%d) to (%d,%d)",
+    ALOGI("clone region is set to (%d,%d) to (%d,%d)",
          hwc_dev->ext.mirror_region.left, hwc_dev->ext.mirror_region.top,
-         hwc_dev->ext.mirror_region.right, hwc_dev->ext.mirror_region.bottom);*/
+         hwc_dev->ext.mirror_region.right, hwc_dev->ext.mirror_region.bottom);
 
     /* read switch state */
-    /*int sw_fd = open("/sys/class/switch/display_support/state", O_RDONLY);
+    int sw_fd = open("/sys/class/switch/display_support/state", O_RDONLY);
     int hpd = 0;
     if (sw_fd >= 0) {
         char value;
@@ -1886,7 +1890,7 @@ static int omap3_hwc_device_open(const hw_module_t* module, const char* name,
             hpd = value == '1';
         close(sw_fd);
     }
-    handle_hotplug(hwc_dev, hpd);*/
+    handle_hotplug(hwc_dev, hpd);
 
     ALOGE("omap3_hwc_device_open(rgb_order=%d nv12_only=%d)",
         hwc_dev->flags_rgb_order, hwc_dev->flags_nv12_only);
@@ -1904,6 +1908,8 @@ done:
         pthread_mutex_destroy(&hwc_dev->lock);
         free(hwc_dev->buffers);
         free(hwc_dev);
+    } else {
+        omap3_hwc_reset_screen(hwc_dev);
     }
 
     return err;
