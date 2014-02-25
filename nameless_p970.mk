@@ -1,3 +1,7 @@
+# Boot animation
+TARGET_SCREEN_HEIGHT := 800
+TARGET_SCREEN_WIDTH := 480
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # The gps config appropriate for this device
@@ -94,10 +98,6 @@ PRODUCT_PACKAGES += \
     prb \
     lgcpversion \
     wifimac
-
-# Add Extra Packages
-#PRODUCT_PACKAGES += \
-#    Torch
 
 # Inherit the SIM Toolkit
 PRODUCT_PACKAGES += Stk
