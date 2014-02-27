@@ -19,15 +19,8 @@
 #define _BDROID_BUILDCFG_H
 
 #define BTM_DEF_LOCAL_NAME   "LG-P970"
-#define BTHC_USERIAL_READ_MEM_SIZE (1034)
 #define BLE_INCLUDED FALSE
 #define BTA_GATT_INCLUDED FALSE
 #define SMP_INCLUDED FALSE
-
-// Enables Interleave scan
-#define BTA_HOST_INTERLEAVE_SEARCH TRUE
-
-#define BTA_SKIP_BLE_READ_REMOTE_FEAT TRUE
-#define BTA_DISABLE_DELAY 1000 /* in milliseconds */
 
 #endif
