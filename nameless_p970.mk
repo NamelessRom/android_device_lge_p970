@@ -140,12 +140,12 @@ PRODUCT_PACKAGES += \
     lights.black \
     audio.a2dp.default \
     audio_policy.default \
+    hwcomposer.black \
     libaudioutils \
     libtiutils \
     libion_ti \
     libomap_mm_library_jni \
     libemoji
-#    hwcomposer.black \
 #    camera.omap3
 
 # legacy version of skia
