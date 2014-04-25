@@ -63,15 +63,6 @@
 #define MAX(a,b)		  ((a)>(b)?(a):(b))
 #define CLAMP(x,low,high) (((x)>(high))?(high):(((x)<(low))?(low):(x)))
 
-#if defined(SCREEN_WIDTH) && defined(SCREEN_HEIGHT)
-/* This trickery is needed to get the preprocessor to stringify the expansion
-   of a macro */
-#define _STR(s)		#s
-#define STR(s)		_STR(s)
-
-#define SCREEN_RES STR(SCREEN_WIDTH) "," STR(SCREEN_HEIGHT)
-#endif
-
 struct ext_transform_t {
     __u8 rotation : 3;          /* 90-degree clockwise rotations */
     __u8 hflip    : 1;          /* flip l-r (after rotation) */
@@ -1068,10 +1059,10 @@ static int omap3_hwc_prepare(struct hwc_composer_device_1 *dev, size_t numDispla
             if (hwc_dev->use_sgx)
                 layer->hints |= HWC_HINT_CLEAR_FB;
             /* see if any of the (non-backmost) overlays are doing blending */
-            else if (is_BLENDED(layer->blending) && i > 0)
+            else if (is_BLENDED(layer) && i > 0)
                 hwc_dev->ovls_blending = 1;
 
-            hwc_dev->buffers[dsscomp->num_ovls] = layer->handle;
+            hwc_dev->buffers[dsscomp->num_ovls] = handle;
 
             omap3_hwc_setup_layer(hwc_dev,
                                   &dsscomp->ovls[dsscomp->num_ovls],
@@ -1237,11 +1228,11 @@ static int omap3_hwc_prepare(struct hwc_composer_device_1 *dev, size_t numDispla
 
     dsscomp->mode = DSSCOMP_SETUP_DISPLAY;
     dsscomp->mgrs[0].ix = 0;
-    dsscomp->mgrs[0].alpha_blending = 0;
+    dsscomp->mgrs[0].alpha_blending = 1;
     /*
      Enable transperency key to make graphics & video layers visible together
     */
-    dsscomp->mgrs[0].trans_enabled = 1;
+    dsscomp->mgrs[0].trans_enabled = 0;
     dsscomp->mgrs[0].swap_rb = hwc_dev->swap_rb;
     dsscomp->num_mgrs = 1;
 
@@ -1252,6 +1243,34 @@ static int omap3_hwc_prepare(struct hwc_composer_device_1 *dev, size_t numDispla
     }
     pthread_mutex_unlock(&hwc_dev->lock);
     return 0;
+}
+
+static void omap3_hwc_reset_screen(omap3_hwc_device_t *hwc_dev)
+{
+    static int first_set = 1;
+    int ret;
+
+    if (first_set) {
+        first_set = 0;
+        struct dsscomp_setup_dispc_data d = {
+                .num_mgrs = 1,
+        };
+        /* remove bootloader image from the screen as blank/unblank does not change the composition */
+        ret = ioctl(hwc_dev->dsscomp_fd, DSSCIOC_SETUP_DISPC, &d);
+        if (ret)
+            ALOGW("failed to remove bootloader image");
+
+        /* blank and unblank fd to make sure display is properly programmed on boot.
+         * This is needed because the bootloader can not be trusted.
+         */
+        ret = ioctl(hwc_dev->fb_fd, FBIOBLANK, FB_BLANK_POWERDOWN);
+        if (ret)
+            ALOGW("failed to blank display");
+
+        ret = ioctl(hwc_dev->fb_fd, FBIOBLANK, FB_BLANK_UNBLANK);
+        if (ret)
+            ALOGW("failed to blank display");
+    }
 }
 
 static int omap3_hwc_set(struct hwc_composer_device_1 *dev,
@@ -1275,6 +1294,8 @@ static int omap3_hwc_set(struct hwc_composer_device_1 *dev,
     int invalidate;
 
     pthread_mutex_lock(&hwc_dev->lock);
+
+    //omap3_hwc_reset_screen(hwc_dev);
 
     invalidate = hwc_dev->ext_ovls_wanted && !hwc_dev->ext_ovls;
 
@@ -1544,7 +1565,7 @@ static void *vsync_loop(void *param)
     omap3_hwc_device_t *hwc_dev = param;
 
     fb0_vsync_fd = open("/sys/devices/platform/omapfb/graphics/fb0/vsync_time", O_RDONLY);
-    if (fb0_vsync_fd < 0)
+    if (!fb0_vsync_fd)
         return NULL;
 
     setpriority(PRIO_PROCESS, 0, HAL_PRIORITY_URGENT_DISPLAY);
@@ -1727,30 +1748,6 @@ static int omap3_hwc_blank(struct hwc_composer_device_1 *dev, int dpy, int blank
     return 0;
 }
 
-static void omap3_hwc_reset_screen(omap3_hwc_device_t *hwc_dev)
-{
-    int ret;
-
-    struct dsscomp_setup_dispc_data d = {
-            .num_mgrs = 1,
-    };
-    /* remove bootloader image from the screen as blank/unblank does not change the composition */
-    ret = ioctl(hwc_dev->dsscomp_fd, DSSCIOC_SETUP_DISPC, &d);
-    if (ret)
-        ALOGW("failed to remove bootloader image");
-
-    /* blank and unblank fd to make sure display is properly programmed on boot.
-     * This is needed because the bootloader can not be trusted.
-     */
-    ret = ioctl(hwc_dev->fb_fd, FBIOBLANK, FB_BLANK_POWERDOWN);
-    if (ret)
-        ALOGW("failed to blank display");
-
-    ret = ioctl(hwc_dev->fb_fd, FBIOBLANK, FB_BLANK_UNBLANK);
-    if (ret)
-        ALOGW("failed to blank display");
-}
-
 static int omap3_hwc_device_open(const hw_module_t* module, const char* name,
                 hw_device_t** device)
 {
@@ -1841,20 +1838,19 @@ static int omap3_hwc_device_open(const hw_module_t* module, const char* name,
             goto done;
     }
 
+
     if (pthread_create(&hwc_dev->hdmi_thread, NULL, omap3_hwc_hdmi_thread, hwc_dev))
     {
             ALOGE("failed to create uevent listening thread (%d): %m", errno);
             err = -errno;
             goto done;
     }
-
     if (pthread_create(&hwc_dev->vsync_thread, NULL, vsync_loop, hwc_dev))
     {
             ALOGE("failed to create vsync-sysfs listening thread (%d): %m", errno);
             err = -errno;
             goto done;
     }
-
     /* get debug properties */
 
     /* see if hwc is enabled at all */
@@ -1882,7 +1878,7 @@ static int omap3_hwc_device_open(const hw_module_t* module, const char* name,
          hwc_dev->ext.mirror_region.right, hwc_dev->ext.mirror_region.bottom);
 
     /* read switch state */
-    int sw_fd = open("/sys/class/switch/display_support/state", O_RDONLY);
+    /*int sw_fd = open("/sys/class/switch/display_support/state", O_RDONLY);
     int hpd = 0;
     if (sw_fd >= 0) {
         char value;
@@ -1890,7 +1886,7 @@ static int omap3_hwc_device_open(const hw_module_t* module, const char* name,
             hpd = value == '1';
         close(sw_fd);
     }
-    handle_hotplug(hwc_dev, hpd);
+    handle_hotplug(hwc_dev, hpd);*/
 
     ALOGE("omap3_hwc_device_open(rgb_order=%d nv12_only=%d)",
         hwc_dev->flags_rgb_order, hwc_dev->flags_nv12_only);
@@ -1908,8 +1904,6 @@ done:
         pthread_mutex_destroy(&hwc_dev->lock);
         free(hwc_dev->buffers);
         free(hwc_dev);
-    } else {
-        omap3_hwc_reset_screen(hwc_dev);
     }
 
     return err;

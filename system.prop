@@ -5,8 +5,8 @@
 com.ti.omap_enhancement=true
 ro.sf.lcd_density=240
 ## Radio stuffs
-ro.telephony.call_ring.multiple=true
-ro.telephony.call_ring.delay=0
+ro.telephony.call_ring.multiple=false
+ro.telephony.call_ring.delay=3000
 ro.telephony.call_ring.absent=true
 rild.libpath=/system/lib/lge-ril.so
 rild.libargs=-d /dev/ttyspi0
