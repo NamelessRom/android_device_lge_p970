@@ -177,11 +177,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.config.low_ram=true  \
 	dalvik.vm.jit.codecachesize=0
 
-# Bootanimation
-TARGET_SCREEN_HEIGHT := 800
-TARGET_SCREEN_WIDTH := 480
-# TARGET_BOOTANIMATION_PRELOAD := true
-# TARGET_BOOTANIMATION_TEXTURE_CACHE := false
-
 # Misc Flags
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/omap/musb-omap2430/musb-hdrc/gadget/lun%d/file"
