@@ -23,6 +23,8 @@ TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_NO_BOOTLOADER := true
 TARGET_OMAP3 := true
 
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-cortex_a8-linux-gnueabi-linaro_4.7.4-2014.04
+
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 TARGET_arm_CFLAGS := -O3 -fomit-frame-pointer -fstrict-aliasing -funswitch-loops \
