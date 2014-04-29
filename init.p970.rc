@@ -187,10 +187,10 @@ on boot
     chmod 0777 /dev/video2
 
 # TI Patch (If12e9caa) : permissions for isp resizer sysfs entries
-		chmod 0777 /sys/devices/platform/dsscomp/isprsz/enable
+    chmod 0777 /sys/devices/platform/dsscomp/isprsz/enable
 
     chmod 0777 /dev/dsscomp
-		chmod 0777 /dev/ion
+    chmod 0777 /dev/ion
 
 # change permissions for overlay managers and display devices
     chmod 0777 /sys/devices/platform/omapdss/manager0/name
@@ -223,11 +223,6 @@ on boot
 
     # Set timeout value for rmnet stats.
     write /sys/devices/virtual/net/rmnet0/timeout_suspend 5000000
-
-
-    # Permissions for setting the DSP Frequency
-    chown media root /sys/power/dsp_freq
-
 
     # SGX driver
     chmod 0666 /dev/pvrsrvkm
@@ -427,7 +422,7 @@ on boot
 
     # Batt gauge error detection
     chown radio system /sys/bus/platform/drivers/twl4030_bci/twl4030_bci/gauge_if
-    chmod 0664 /sys/bus/platform/drivers/twl4030_bci/twl4030_bci/gauge_if
+    chmod 0666 /sys/bus/platform/drivers/twl4030_bci/twl4030_bci/gauge_if
 
     #modify soc-audio permission
     chown system system /sys/devices/platform/soc-audio/codec_reg
@@ -440,18 +435,6 @@ on boot
     chmod 644 /sys/devices/platform/soc-audio/TWL4030_FM/codec_reg
     chmod 644 /sys/devices/platform/soc-audio/TWL4030_I2S/codec_reg
     chmod 644 /sys/devices/platform/soc-audio/TWL4030_PCM/codec_reg
-
-    # ALS
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als
-
-## OLD
-
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als
-
-    # Batt gauge error detection
-    chmod 0666 /sys/bus/platform/drivers/twl4030_bci/twl4030_bci/gauge_if
 
     # Enabling sleep in idle path
     write /sys/power/sleep_while_idle 1
@@ -664,14 +647,6 @@ service sysinit /system/bin/sysinit
 service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
     class late_start
     disabled
-
-# Phone modem error handling
-service panic_daemon /system/bin/panic_daemon
-    class main
-    user radio
-    group radio system graphics sdcard_rw
-    socket panic_daemon stream 660 radio radio
-    onrestart exec /system/bin/handle_bp_panic.sh
 
 service dhcpcd_p2p /system/bin/dhcpcd -aABKL
     disabled
