@@ -51,7 +51,7 @@ BOARD_FLASH_BLOCK_SIZE             := 131072
 
 BOARD_CUSTOM_GRAPHICS         := ../../../device/lge/p970/recovery/graphics.c
 #TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_RECOVERY_FSTAB         := device/lge/p970/configs/fstab.black
+TARGET_RECOVERY_FSTAB         := device/lge/p970/rootdir/etc/fstab.black
 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
