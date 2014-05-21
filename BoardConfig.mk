@@ -51,7 +51,7 @@ BOARD_FLASH_BLOCK_SIZE             := 131072
 
 BOARD_CUSTOM_GRAPHICS         := ../../../device/lge/p970/recovery/graphics.c
 #TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_RECOVERY_FSTAB         := device/lge/p970/configs/fstab.black
+TARGET_RECOVERY_FSTAB         := device/lge/p970/rootdir/etc/fstab.black
 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
@@ -95,8 +95,7 @@ TARGET_HAS_LEGACY_WLAN           := true
 
 BOARD_EGL_CFG := device/lge/p970/configs/egl.cfg
 ENABLE_WEBGL := true
-#USE_OPENGL_RENDERER := true
-#TARGET_DISABLE_TRIPLE_BUFFERING := true
+USE_OPENGL_RENDERER := true
 
 COMMON_GLOBAL_CFLAGS += -DSYSTEMUI_PBSIZE_HACK=1
 COMMON_GLOBAL_CFLAGS += -DWORKAROUND_BUG_10194508=1
