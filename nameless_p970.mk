@@ -61,8 +61,8 @@ PRODUCT_COPY_FILES += \
 # RIL stuffs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/ipc_channels.config:system/etc/ipc_channels.config \
-    $(LOCAL_PATH)/init.vsnet:system/bin/init.vsnet \
-    $(LOCAL_PATH)/init.vsnet-down:system/bin/init.vsnet-down
+    $(LOCAL_PATH)/prebuilt/bin/init.vsnet:system/bin/init.vsnet \
+    $(LOCAL_PATH)/prebuilt/bin/init.vsnet-down:system/bin/init.vsnet-down
 
 ## GPS
 PRODUCT_COPY_FILES += \
