@@ -9,7 +9,7 @@
 /dev/block/mmcblk0p8        /system             ext4        defaults    recoveryonly
 
 # sdcard
-/devices/platform/omap/omap_hsmmc.0/mmc_host    auto        auto    defaults    voldmanaged=sdcard0:auto
+/devices/platform/omap/omap_hsmmc.0/mmc_host    auto        auto    defaults    voldmanaged=sdcard0:auto,noemulatedsd
 
 # zRam
 /dev/block/zram0            none                swap        defaults    zramsize=134217728
