@@ -513,6 +513,14 @@ on boot
     chmod 0666 /sys/devices/platform/bd_address/bdaddr_if
     write /sys/class/rfkill/rfkill0/state 0
 
+    # KSM
+    write /sys/kernel/mm/ksm/pages_to_scan 100
+    write /sys/kernel/mm/ksm/sleep_millisecs 500
+    write /sys/kernel/mm/ksm/run 1
+
+    # ZRAM
+    write /proc/sys/vm/page-cluster 0
+
 service prb /sbin/prb
     user root
     disabled
