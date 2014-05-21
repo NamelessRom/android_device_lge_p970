@@ -21,24 +21,17 @@ $(call inherit-product-if-exists, vendor/lge/p970/p970-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/lge/p970/overlay
 
-## Dummy file to help RM identify the model
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/root/bootimages/ON_480x800_08fps_0000.rle:root/bootimages/ON_480x800_08fps_0000.rle
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.p970.rc:root/init.black.rc \
-    $(LOCAL_PATH)/init.p970.usb.rc:root/init.black.usb.rc \
-    $(LOCAL_PATH)/ueventd.p970.rc:root/ueventd.black.rc \
-    $(LOCAL_PATH)/configs/fstab.black:root/fstab.black
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
-    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml
+    $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml
 
-# frandom
+# init.d scripts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/init.d/10app2sd:system/etc/init.d/10app2sd
 
@@ -61,23 +54,23 @@ PRODUCT_COPY_FILES += \
 # RIL stuffs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/ipc_channels.config:system/etc/ipc_channels.config \
-    $(LOCAL_PATH)/init.vsnet:system/bin/init.vsnet \
-    $(LOCAL_PATH)/init.vsnet-down:system/bin/init.vsnet-down
+    $(LOCAL_PATH)/prebuilt/bin/init.vsnet:system/bin/init.vsnet \
+    $(LOCAL_PATH)/prebuilt/bin/init.vsnet-down:system/bin/init.vsnet-down
 
-## GPS
+# GPS
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps_brcm_conf.xml:system/etc/gps_brcm_conf.xml
 
-## Wifi
+# Wifi
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/wifimac/wlan-precheck:system/bin/wlan-precheck \
-    $(LOCAL_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    $(LOCAL_PATH)/configs/nvram.txt:system/etc/wifi/nvram.txt \
-    $(LOCAL_PATH)/configs/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
-    $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-    $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+    $(LOCAL_PATH)/wifi/wifimac/wlan-precheck:system/bin/wlan-precheck \
+    $(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+    $(LOCAL_PATH)/wifi/nvram.txt:system/etc/wifi/nvram.txt \
+    $(LOCAL_PATH)/wifi/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
+    $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
-## Touchscreen confs
+# Touchscreen confs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/hub_synaptics_touch.kl:system/usr/keylayout/hub_synaptics_touch.kl \
     $(LOCAL_PATH)/configs/hub_synaptics_touch.idc:system/usr/idc/hub_synaptics_touch.idc
@@ -85,9 +78,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/Hookkey.kl:system/usr/keylayout/Hookkey.kl
 
-## Alsa configs
+# Alsa configs
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/asound.conf:system/etc/asound.conf
+    $(LOCAL_PATH)/audio/asound.conf:system/etc/asound.conf
 
 # Charger mode
 PRODUCT_PACKAGES += \
@@ -99,9 +92,6 @@ PRODUCT_PACKAGES += \
     prb \
     lgcpversion \
     wifimac
-
-# Inherit the SIM Toolkit
-PRODUCT_PACKAGES += Stk
 
 # OMX components
 PRODUCT_PACKAGES += \
@@ -158,7 +148,6 @@ $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
 PRODUCT_AAPT_CONFIG := normal hdpi
 
-OMNI_DEVICE := p970
 PRODUCT_NAME := nameless_p970
 PRODUCT_RELEASE_NAME := OptimusBlack
 PRODUCT_DEVICE := p970
