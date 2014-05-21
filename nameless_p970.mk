@@ -158,7 +158,6 @@ $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
 PRODUCT_AAPT_CONFIG := normal hdpi
 
-OMNI_DEVICE := p970
 PRODUCT_NAME := nameless_p970
 PRODUCT_RELEASE_NAME := OptimusBlack
 PRODUCT_DEVICE := p970
