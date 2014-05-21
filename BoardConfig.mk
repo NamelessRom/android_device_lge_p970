@@ -51,7 +51,7 @@ BOARD_FLASH_BLOCK_SIZE             := 131072
 
 BOARD_CUSTOM_GRAPHICS         := ../../../device/lge/p970/recovery/graphics.c
 #TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_RECOVERY_FSTAB         := device/lge/p970/configs/fstab.black
+TARGET_RECOVERY_FSTAB         := device/lge/p970/rootdir/etc/fstab.black
 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
@@ -95,13 +95,14 @@ TARGET_HAS_LEGACY_WLAN           := true
 
 BOARD_EGL_CFG := device/lge/p970/configs/egl.cfg
 ENABLE_WEBGL := true
-#USE_OPENGL_RENDERER := true
-#TARGET_DISABLE_TRIPLE_BUFFERING := true
+USE_OPENGL_RENDERER := true
+TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+TARGET_DISABLE_TRIPLE_BUFFERING := true
 
 COMMON_GLOBAL_CFLAGS += -DSYSTEMUI_PBSIZE_HACK=1
 COMMON_GLOBAL_CFLAGS += -DWORKAROUND_BUG_10194508=1
 
-BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/lge/p970/vibrator.c  
+BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/lge/p970/vibrator.c
 BOARD_SYSFS_LIGHT_SENSOR          := "/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/leds/lcd-backlight/als"
 
 COMMON_GLOBAL_CFLAGS           += -DNEEDS_VECTORIMPL_SYMBOLS -DHAS_CONTEXT_PRIORITY -DDONT_USE_FENCE_SYNC
@@ -133,7 +134,7 @@ SKIP_SET_METADATA := true
 
 # Additional Props
 PRODUCT_PROPERTY_OVERRIDES += \
-        ro.config.low_ram=true  \
+        ro.config.low_ram=true \
         dalvik.vm.jit.codecachesize=0
 
 # adb root
