@@ -45,8 +45,6 @@ ro.min.fling_velocity=8000
 # Save battery
 wifi.supplicant_scan_interval=300
 pm.sleep_mode=1
-ro.ril.disable.power.collapse=0
-ro.ril.fast.dormancy.rule=0
 # ADB Notify
 #persist.adb.notify=0
 # Increase overall touch responsiveness
