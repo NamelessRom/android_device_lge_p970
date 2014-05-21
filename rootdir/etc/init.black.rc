@@ -235,114 +235,114 @@ on boot
 
     #LED Permission is modified.
     chmod 0664 /sys/devices/platform/omapdss/display0/name
-	chmod 0664 /sys/devices/platform/omapdss/display1/name
-	chmod 0664 /sys/devices/platform/omapdss/display0/enabled
-	chmod 0664 /sys/devices/platform/omapdss/display1/enabled
-	chmod 0664 /sys/devices/platform/omapdss/display0/timings
-	chmod 0664 /sys/devices/platform/omapdss/display1/timings
-	chmod 0644 /sys/devices/platform/omapdss/overlay0/manager
-	chmod 0644 /sys/devices/platform/omapdss/overlay1/manager
-	chmod 0644 /sys/devices/platform/omapdss/overlay2/manager
-	chmod 0644 /sys/devices/platform/omapdss/overlay0/zorder
-	chmod 0644 /sys/devices/platform/omapdss/overlay1/zorder
-	chmod 0644 /sys/devices/platform/omapdss/overlay2/zorder
-	chmod 0644 /sys/devices/platform/omapdss/overlay0/enabled
-	chmod 0644 /sys/devices/platform/omapdss/overlay1/enabled
-	chmod 0644 /sys/devices/platform/omapdss/overlay2/enabled
-	chmod 0644 /sys/devices/platform/omapdss/manager0/display
-	chmod 0644 /sys/devices/platform/omapdss/manager1/display
-	chmod 0644 /sys/devices/platform/omapdss/manager0/trans_key_enabled
-	chmod 0644 /sys/devices/platform/omapdss/manager1/trans_key_enabled
-	chmod 0644 /sys/devices/platform/omapdss/manager0/trans_key_type
-	chmod 0644 /sys/devices/platform/omapdss/manager1/trans_key_type
-	chmod 0644 /sys/devices/platform/omapdss/manager0/trans_key_value
-	chmod 0644 /sys/devices/platform/omapdss/manager1/trans_key_value
-	chmod 0644 /sys/devices/platform/omapdss/manager0/alpha_blending_enabled
-	chmod 0644 /sys/devices/platform/omapdss/manager1/alpha_blending_enabled
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als_option
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als_option
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/onoff
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/onoff
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/alsgain_control
-	chown system system  /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/alsgain_control
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als_control
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als_control
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als
-	write /sys/devices/platform/omapdss/manager0/alpha_blending_enabled 1
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0036/state
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0036/state
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x15
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x15
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x14
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x14
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x13
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x13
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x12
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x12
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x11
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x11
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x10
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x10
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0F
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0F
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0E
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0E
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0D
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0D
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0C
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0C
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0B
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0B
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0A
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0A
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x09
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x09
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x08
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x08
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x07
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x07
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x06
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x06
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x05
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x05
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x04
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x04
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x03
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x03
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x02
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x02
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x01
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x01
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x00
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x00
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_brightness
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_brightness
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_sync
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_sync
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_testmode
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_testmode
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_onoff
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_onoff
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_start
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_start
-	chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/blink_enable
-	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/blink_enable
-	chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/fw
-	chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/fw
-	chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/gripsuppression
-	chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/gripsuppression
+    chmod 0664 /sys/devices/platform/omapdss/display1/name
+    chmod 0664 /sys/devices/platform/omapdss/display0/enabled
+    chmod 0664 /sys/devices/platform/omapdss/display1/enabled
+    chmod 0664 /sys/devices/platform/omapdss/display0/timings
+    chmod 0664 /sys/devices/platform/omapdss/display1/timings
+    chmod 0644 /sys/devices/platform/omapdss/overlay0/manager
+    chmod 0644 /sys/devices/platform/omapdss/overlay1/manager
+    chmod 0644 /sys/devices/platform/omapdss/overlay2/manager
+    chmod 0644 /sys/devices/platform/omapdss/overlay0/zorder
+    chmod 0644 /sys/devices/platform/omapdss/overlay1/zorder
+    chmod 0644 /sys/devices/platform/omapdss/overlay2/zorder
+    chmod 0644 /sys/devices/platform/omapdss/overlay0/enabled
+    chmod 0644 /sys/devices/platform/omapdss/overlay1/enabled
+    chmod 0644 /sys/devices/platform/omapdss/overlay2/enabled
+    chmod 0644 /sys/devices/platform/omapdss/manager0/display
+    chmod 0644 /sys/devices/platform/omapdss/manager1/display
+    chmod 0644 /sys/devices/platform/omapdss/manager0/trans_key_enabled
+    chmod 0644 /sys/devices/platform/omapdss/manager1/trans_key_enabled
+    chmod 0644 /sys/devices/platform/omapdss/manager0/trans_key_type
+    chmod 0644 /sys/devices/platform/omapdss/manager1/trans_key_type
+    chmod 0644 /sys/devices/platform/omapdss/manager0/trans_key_value
+    chmod 0644 /sys/devices/platform/omapdss/manager1/trans_key_value
+    chmod 0644 /sys/devices/platform/omapdss/manager0/alpha_blending_enabled
+    chmod 0644 /sys/devices/platform/omapdss/manager1/alpha_blending_enabled
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als_option
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als_option
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/onoff
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/onoff
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/alsgain_control
+    chown system system  /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/alsgain_control
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als_control
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als_control
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als
+    write /sys/devices/platform/omapdss/manager0/alpha_blending_enabled 1
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0036/state
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0036/state
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x15
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x15
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x14
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x14
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x13
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x13
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x12
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x12
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x11
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x11
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x10
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x10
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0F
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0F
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0E
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0E
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0D
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0D
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0C
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0C
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0B
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0B
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0A
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0A
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x09
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x09
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x08
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x08
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x07
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x07
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x06
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x06
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x05
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x05
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x04
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x04
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x03
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x03
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x02
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x02
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x01
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x01
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x00
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x00
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_brightness
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_brightness
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_sync
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_sync
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_testmode
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_testmode
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_onoff
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_onoff
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_start
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_start
+    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/blink_enable
+    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/blink_enable
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/fw
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/fw
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/gripsuppression
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/gripsuppression
 # [START_CommonFramework] sunkyu.yun@lge.com 2012-06-08 light sensor
-	chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_option
-	chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_option
-	chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/onoff
-	chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/onoff
-	chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/alsgain_control
-	chown system system  /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/alsgain_control
-	chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_control
-	chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_control
-	chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als
-	chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als
+    chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_option
+    chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_option
+    chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/onoff
+    chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/onoff
+    chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/alsgain_control
+    chown system system  /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/alsgain_control
+    chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_control
+    chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_control
+    chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als
+    chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als
 # [END_CommonFramework] sunkyu.yun@lge.com 2012-06-08 light sensor
 
 # Sensor
@@ -357,7 +357,7 @@ on boot
 # LGE_CHANGE_E, ryu.seeyeol@lge.com, 2011-02-01, Sensors Porting (MPL V3.3 Release)
     chmod 0666 /dev/akm8973_daemon
     chmod 0666 /dev/akm8973_aot
-	chmod 0666 /dev/kxtf9_accel
+    chmod 0666 /dev/kxtf9_accel
     chown system system /dev/motion_daemon
     chown system system /dev/accel_api
     chmod 0666 /dev/motion_daemon
@@ -375,7 +375,7 @@ on boot
     chown system system /sys/devices/platform/motion_sensor/composite_delay
 # ]] LGE_UBIQUIX_MODIFIED_END : shyun@ubiquix.com [2011.10.06]- Motion sensor permission is modified.
 # [[ LGE_UBIQUIX_MODIFIED_START : shyun@ubiquix.com [2011.09.28] - Motion sensor permission is modified.
-	chown system system /sys/devices/platform/motion_sensor/cal_onoff
+    chown system system /sys/devices/platform/motion_sensor/cal_onoff
 # ]] LGE_UBIQUIX_MODIFIED_END : shyun@ubiquix.com [2011.09.28]- Motion sensor permission is modified.
 # [[ LGE_UBIQUIX_MODIFIED_START : shyun@ubiquix.com [2011.09.19] - Proximity sensor sysfs file path is modified.
     chown system system /sys/bus/i2c/drivers/black_proxi/3-0044/onoff
