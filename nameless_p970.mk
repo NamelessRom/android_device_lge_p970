@@ -35,8 +35,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
-    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml
+    $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml
 
 # frandom
 PRODUCT_COPY_FILES += \
@@ -87,7 +87,7 @@ PRODUCT_COPY_FILES += \
 
 ## Alsa configs
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/asound.conf:system/etc/asound.conf
+    $(LOCAL_PATH)/audio/asound.conf:system/etc/asound.conf
 
 # Charger mode
 PRODUCT_PACKAGES += \
