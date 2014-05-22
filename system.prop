@@ -28,13 +28,6 @@ ro.hwui.disable_scissor_opt=true
 # GPU Producer to CPU Consumer
 ro.bq.gpu_to_cpu_unsupported=1
 
-## Device Information
-ro.device.cpu=1 GHz Cortex-A8
-ro.device.gpu=PowerVR SGX530
-ro.device.rear_cam=5.0 MP
-ro.device.front_cam=1.9 MP
-ro.device.screen_res=4 inch 480x800
-
 ## CUSTOM
 # Render UI with GPU
 debug.sf.hw=1
@@ -64,11 +57,6 @@ ro.media.panorama.frameres=1280x720
 ro.camcorder.videoModes=true
 ro.media.enc.hprof.vid.fps=30
 ro.media.cam.preview.fps=0
-# Google DNS
-net.ppp0.dns1=8.8.8.8
-net.ppp0.dns2=8.8.4.4
-net.dns1=8.8.8.8
-net.dns2=8.8.4.4
 # Proximity
 ro.lge.proximity.delay=25
 mot.proximity.delay=25
@@ -89,17 +77,6 @@ dalvik.vm.dexopt-flags=m=y
 dalvik.vm.verify-bytecode=false
 ro.mot.eri.losalert.delay=1000
 ro.ril.enable.amr.wideband=1
-# LG flags
-persist.service.pcsync.enable=0
-persist.service.lgospd.enable=0
-# LG Specific
-user.feature.flex=true
-user.feature.lgdrm=false
-user.feature.lgresource=false
-user.feature.lgpoweroff=false
-user.feature.ls_event=false
-user.feature.ls_normal=false
-user.feature.sui=false
 # Fast Reboot
 persist.sys.shutdown.mode=hibernate
 ro.config.hw_quickpoweron=true
