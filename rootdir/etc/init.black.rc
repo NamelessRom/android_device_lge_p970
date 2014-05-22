@@ -11,15 +11,6 @@ on init
     # 2012.07.03 youmi.jun : To fix issue when CAMERA IPP enabled
     symlink /system/lib /lib
 
-    mkdir /sqlite_stmt_journals 01777 root root
-    mount tmpfs tmpfs /sqlite_stmt_journals size=4m
-
-#[LGE_start] hyunwoong.ahn
-    mkdir /dvp 0771 system system
-    mkdir /dvp/hwkey 0771 system system
-    mkdir /dvp/userdata 0771 system system
-#[LGE_end] hyunwoong.ahn
-
     chown system system /sys/class/leds/lcd-backlight/als
 
     # KitKat SDCARD
@@ -27,46 +18,20 @@ on init
     mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
     mkdir /storage/sdcard0 0700 root sdcard_r
 
-    export EXTERNAL_STORAGE /storage/sdcard0/
+    export EXTERNAL_STORAGE /storage/sdcard0
 
     # Support legacy paths
-    symlink /storage/sdcard0/ /sdcard
-    symlink /storage/sdcard0/ /mnt/sdcard
-    symlink /storage/sdcard0/ /storage/sdcard
+    symlink /storage/sdcard0 /sdcard
+    symlink /storage/sdcard0 /mnt/sdcard
+    symlink /storage/sdcard0 /storage/sdcard
 
     # Increase readahead buffers on MMC devices
     write /sys/block/mmcblk0/bdi/read_ahead_kb 1024
     write /sys/block/mmcblk1/bdi/read_ahead_kb 1024
 
 on fs
-# mount mtd partitions
-    # Mount /system rw first to give the filesystem a chance to save a checkpoint
-    mount ext4 /dev/block/mmcblk0p8 /system ro noatime barrier=1 wait
-    # We chown/chmod /data again so because mount is run as root + defaults
-    mount ext4 /dev/block/mmcblk0p9 /data nosuid nodev noatime barrier=1 wait
-    chown system system /data
-    chmod 0771 /data
-
     mount_all fstab.black
     swapon_all fstab.black
-
-#[LGE_star]Hyunwoong.ahn^M
-    mount ext3 /dev/block/mmcblk0p6 /dvp/hwkey nosuid nodev
-    chown system system /dvp/hwkey
-    chown system divxdrm /dvp/hwkey/key.hw
-    chmod 0660 /dvp/hwkey/key.hw
-    mount ext3 /dev/block/mmcblk0p6 /dvp/userdata nosuid nodev
-    chown system divxdrm /dvp/userdata
-    chmod 0770 /dvp/userdata
-    chown system system /dev/block/mmcblk0p5
-    chown system system /dev/block/mmcblk0p12
-    chmod 0777 /dev/block/mmcblk0p5
-    chmod 0777 /dev/block/mmcblk0p12
-
-    mount ext4 /dev/block/mmcblk0p10 /cache nosuid nodev noatime barrier=1 wait
-
-    mkdir /lgdrm 0770 lgdrm lgdrm_acc
-    mount ext3 /dev/block/mmcblk0p5 /lgdrm nosuid nodev
 
 on post-fs-data
     setprop vold.post_fs_data_done 1
@@ -80,9 +45,14 @@ on post-fs-data
     setprop wifi.supplicant_scan_interval 20
     setprop wifi.interface wlan0
 
+    # Create the directories for the dalvik-cache
     mkdir /cache/dalvik-cache 0771 system system
     chown system system /cache/dalvik-cache
     chmod 0771 /cache/dalvik-cache
+    mkdir /data/dalvik-cache 0771 system system
+    chown system system /data/dalvik-cache
+    chmod 0771 /data/dalvik-cache
+
     mkdir /data/.ssh 0750 root shell
 
     # Run sysinit
@@ -108,22 +78,9 @@ on boot
     write /sys/kernel/debug/smartreflex/sr_core/autocomp 1
     write /sys/kernel/debug/smartreflex/sr_mpu_iva/autocomp 1
 
-    #Enablig DVFS with ondemand governor
-    #write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
-    #write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 50000
-    #write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 60
-
-    # 2012.08.06, mannsik.chung@lge.com, Backup scaling governor. For use at zygot restart by GC.
-    # copy /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor_bak
-    #write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor_bak ondemand
-
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    #chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor_bak
-
-    # Lower maximum frequency when screen is off
-    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 600000
-
     # PowerHAL perms
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq
@@ -144,6 +101,9 @@ on boot
     chown system system /sys/devices/system/cpu/cpufreq/interactive/boost_factor
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/input_boost
     chown system system /sys/devices/system/cpu/cpufreq/interactive/input_boost
+
+    # Lower maximum frequency when screen is off
+    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 600000
 
     # autosuspend root hubs immediatly after attached devices
     write /sys/bus/usb/devices/usb1/power/autosuspend_delay_ms 0
