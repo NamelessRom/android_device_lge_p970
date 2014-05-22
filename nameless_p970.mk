@@ -31,13 +31,10 @@ PRODUCT_PACKAGES += \
     init.black.usb.rc \
     ueventd.black.rc
 
-# Alsa configs
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio/asound.conf:system/etc/asound.conf
-
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
-    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml
+    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf
 
 # init.d scripts
 PRODUCT_COPY_FILES += \
@@ -134,6 +131,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lights.black \
     audio.a2dp.default \
+    audio.primary.black \
     audio_policy.default \
     hwcomposer.black \
     libaudioutils \
