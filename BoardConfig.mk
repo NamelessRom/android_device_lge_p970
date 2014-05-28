@@ -80,18 +80,17 @@ endif
 
 BOARD_MOBILEDATA_INTERFACE_NAME := "vsnet0"
 
-BOARD_WLAN_DEVICE                := bcm4329
-WIFI_DRIVER_FW_PATH_STA          := "/system/etc/firmware/fw_bcm4329.bin"
-WIFI_DRIVER_FW_PATH_AP           := "/system/etc/firmware/fw_bcm4329_ap.bin"
-WIFI_DRIVER_MODULE_NAME          := "wireless"
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wireless.ko"
-WIFI_DRIVER_MODULE_ARG           := "firmware_path=/system/etc/firmware/fw_bcm4329.bin nvram_path=/system/etc/wifi/nvram.txt config_path=/data/misc/wifi/config"
+BOARD_WLAN_DEVICE                := bcmdhd
+BOARD_HOSTAPD_DRIVER             := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
-BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_wext
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wext
+WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcmdhd/parameters/firmware_path"
+WIFI_DRIVER_FW_PATH_STA          := "/system/etc/firmware/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_AP           := "/system/etc/firmware/fw_bcmdhd_apsta.bin"
+BOARD_LEGACY_NL80211_STA_EVENTS  := true
 WIFI_DRIVER_HAS_LGE_SOFTAP       := true
-BOARD_WPA_SUPPLICANT_DRIVER      := WEXT
-TARGET_HAS_LEGACY_WLAN           := true
 
 BOARD_EGL_CFG       := device/lge/p970/configs/egl.cfg
 ENABLE_WEBGL        := true
