@@ -2,6 +2,7 @@ import init.black.usb.rc
 
 on early-init
     export ANDROID_CACHE /cache
+    write /sys/block/mmcblk0/queue/scheduler noop
 
 on init
     export DSP_PATH /system/lib/dsp
@@ -10,8 +11,6 @@ on init
 
     # 2012.07.03 youmi.jun : To fix issue when CAMERA IPP enabled
     symlink /system/lib /lib
-
-    chown system system /sys/class/leds/lcd-backlight/als
 
     # Sdcard
     mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
@@ -33,7 +32,8 @@ on fs
     swapon_all fstab.black
 
 on post-fs-data
-    setprop vold.post_fs_data_done 1
+    mkdir /data/media 0775 media_rw media_rw
+    chown media_rw media_rw /data/media
 
     # Create the directories used by the Wireless subsystem
     mkdir /data/misc/wifi 0770 wifi wifi
@@ -53,6 +53,8 @@ on post-fs-data
     chmod 0771 /data/dalvik-cache
 
     mkdir /data/.ssh 0750 root shell
+
+    setprop vold.post_fs_data_done 1
 
     # Run sysinit
     start sysinit
@@ -179,9 +181,6 @@ on boot
     chmod 0777 /dev/video10
     chmod 0777 /dev/omap-prev2resz
 
-    # Set timeout value for rmnet stats.
-    write /sys/devices/virtual/net/rmnet0/timeout_suspend 5000000
-
     # SGX driver
     chmod 0666 /dev/pvrsrvkm
 
@@ -250,6 +249,7 @@ on boot
     chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_control
     chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_control
     chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als
+    chown system system /sys/class/leds/lcd-backlight/als
     chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als
 # [END_CommonFramework] sunkyu.yun@lge.com 2012-06-08 light sensor
 
@@ -400,6 +400,11 @@ on boot
     # ZRAM
     write /proc/sys/vm/page-cluster 0
 
+    # Flash storage isn't a good entropy source, and only causes locking
+    # overhead in the kernel. Turn it off.
+    write /sys/block/mmcblk0/queue/add_random 0
+    write /sys/block/mmcblk1/queue/add_random 0
+
 service prb /sbin/prb
     user root
     disabled
@@ -428,9 +433,13 @@ service glgps /system/bin/glgps -c /system/etc/gps_brcm_conf.xml
     user system
     group net_raw sdcard_rw system radio
 
-on property:dev.bootcomplete=1
+on property:service.bootanim.exit=1
     write /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/led_button 0
+
+on property:sys.boot_completed=1
     start setcpversion
+    write /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/led_button 0
+    write /sys/block/mmcblk0/queue/scheduler row
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -BKAL
     class main
