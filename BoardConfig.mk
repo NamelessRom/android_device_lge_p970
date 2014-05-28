@@ -51,15 +51,16 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 1170259968
 BOARD_FLASH_BLOCK_SIZE             := 131072
 
 BOARD_CUSTOM_GRAPHICS         := ../../../device/lge/p970/recovery/graphics.c
-#TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+TARGET_RECOVERY_PIXEL_FORMAT  := "RGBX_8888"
 TARGET_RECOVERY_FSTAB         := device/lge/p970/rootdir/etc/fstab.black
+RECOVERY_FSTAB_VERSION        := 2
 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
 BOARD_HAVE_BLUETOOTH                        := true
 BOARD_HAVE_BLUETOOTH_BCM                    := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/p970/bluetooth
-BOARD_BLUEDROID_VENDOR_CONF := device/lge/p970/bluetooth/libbt_vndcfg.txt
+BOARD_BLUEDROID_VENDOR_CONF                 := device/lge/p970/bluetooth/libbt_vndcfg.txt
 #BOARD_HAVE_FM_RADIO                         := true
 
 # ION
@@ -85,24 +86,25 @@ endif
 
 BOARD_MOBILEDATA_INTERFACE_NAME := "vsnet0"
 
-BOARD_WLAN_DEVICE                := bcm4329
-WIFI_DRIVER_FW_PATH_STA          := "/system/etc/firmware/fw_bcm4329.bin"
-WIFI_DRIVER_FW_PATH_AP           := "/system/etc/firmware/fw_bcm4329_ap.bin"
-WIFI_DRIVER_MODULE_NAME          := "wireless"
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wireless.ko"
-WIFI_DRIVER_MODULE_ARG           := "firmware_path=/system/etc/firmware/fw_bcm4329.bin nvram_path=/system/etc/wifi/nvram.txt config_path=/data/misc/wifi/config"
+BOARD_WLAN_DEVICE                := bcmdhd
+BOARD_HOSTAPD_DRIVER             := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
-BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_wext
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wext
+BOARD_LEGACY_NL80211_STA_EVENTS  := true
+
+WIFI_DRIVER_MODULE_ARG           := "firmware_path=/system/vendor/firmware/fw_bcmdhd.bin nvram_path=/system/etc/wifi/nvram.txt"
+WIFI_DRIVER_MODULE_AP_ARG        := "firmware_path=/system/vendor/firmware/fw_bcmdhd_apsta.bin nvram_path=/system/etc/wifi/nvram.txt"
+WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcmdhd/parameters/firmware_path"
+WIFI_DRIVER_FW_PATH_STA          := "/system/vendor/firmware/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_P2P          := "/system/vendor/firmware/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_AP           := "/system/vendor/firmware/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_HAS_LGE_SOFTAP       := true
-BOARD_WPA_SUPPLICANT_DRIVER      := WEXT
-TARGET_HAS_LEGACY_WLAN           := true
 
 BOARD_EGL_CFG       := device/lge/p970/configs/egl.cfg
 ENABLE_WEBGL        := true
 USE_OPENGL_RENDERER := true
-#TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
-#TARGET_DISABLE_TRIPLE_BUFFERING := true
 
 COMMON_GLOBAL_CFLAGS += -DSYSTEMUI_PBSIZE_HACK=1
 COMMON_GLOBAL_CFLAGS += -DWORKAROUND_BUG_10194508=1
@@ -121,7 +123,7 @@ BOARD_RIL_CLASS := ../../../device/lge/p970/ril/
 COMMON_GLOBAL_CFLAGS += -DICS_CAMERA_BLOB -DOMAP_ICS_CAMERA -DCAMERA_LEGACY_HACK
 
 # Use cm powerhal
-TARGET_POWERHAL_VARIANT := cm
+TARGET_POWERHAL_VARIANT    := cm
 TARGET_USES_CPU_BOOST_HINT := true
 
 # Fix Graphics Issues
