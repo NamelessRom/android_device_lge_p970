@@ -19,6 +19,10 @@ $(call inherit-product, vendor/nameless/config/common.mk)
 
 $(call inherit-product-if-exists, vendor/lge/p970/p970-vendor.mk)
 
+# Inherit wifi broadcom stuffs
+$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
+$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/config/config-bcm.mk)
+
 DEVICE_PACKAGE_OVERLAYS += device/lge/p970/overlay
 
 PRODUCT_COPY_FILES += \
@@ -72,11 +76,9 @@ PRODUCT_COPY_FILES += \
 # Wifi
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/wifimac/wlan-precheck:system/bin/wlan-precheck \
-    $(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     $(LOCAL_PATH)/wifi/nvram.txt:system/etc/wifi/nvram.txt \
     $(LOCAL_PATH)/wifi/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
-    $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-    $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+    $(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
 
 # Touchscreen configs
 PRODUCT_COPY_FILES += \
@@ -95,8 +97,13 @@ PRODUCT_PACKAGES += \
     power.black \
     prb \
     lgcpversion \
-    wifimac \
     brcm_patchram_plus
+
+# Wifi
+PRODUCT_PACKAGES += \
+    wifimac \
+    dhdutil \
+    libnetcmdiface
 
 # OMX components
 PRODUCT_PACKAGES += \
@@ -132,7 +139,7 @@ PRODUCT_PACKAGES += \
     libOMX.TI.AMR.decode \
     libOMX.TI.G726.decode
 
-#ITTIAM OMX
+# ITTIAM OMX
 PRODUCT_PACKAGES += \
     libOMX.TI.720P.Decoder \
     libOMX.TI.720P.Encoder
