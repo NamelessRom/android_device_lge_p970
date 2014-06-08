@@ -231,62 +231,16 @@ on boot
     write /sys/devices/platform/omapdss/manager0/alpha_blending_enabled 1
     chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0036/state
     chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0036/state
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x15
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x15
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x14
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x14
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x13
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x13
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x12
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x12
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x11
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x11
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x10
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x10
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0F
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0F
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0E
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0E
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0D
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0D
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0C
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0C
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0B
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0B
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0A
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0A
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x09
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x09
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x08
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x08
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x07
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x07
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x06
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x06
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x05
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x05
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x04
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x04
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x03
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x03
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x02
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x02
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x01
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x01
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x00
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x00
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_brightness
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_brightness
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_sync
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_sync
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_testmode
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_testmode
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_onoff
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_onoff
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_start
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_start
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/blink_enable
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/blink_enable
+    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/pattern
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/pattern
+    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/button
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/button
+    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/state
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/state
+    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/pattern_brightness
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/pattern_brightness
+    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/button_brightness
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/button_brightness
     chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/fw
     chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/fw
     chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/gripsuppression
@@ -429,26 +383,6 @@ on boot
     chown system camera /sys/class/leds/rt8515/brightness
     chmod 0660 /sys/class/leds/rt8515/brightness
 
-    ## liblights
-    chown system system /sys/class/leds/lcd-backlight/brightness
-    chown system system /sys/class/leds/lcd-backlight/onoff
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_brightness
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_onoff
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/led_sync
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/blink_enable
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x06
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x07
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0D
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0E
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x10
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x11
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x03
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x04
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x09
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x0A
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x13
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-001a/0x14
-
 # bluetooth permissions
     chmod 0660 /dev/ttyHS2
     chown bluetooth bluetooth /dev/ttyHS2
@@ -506,9 +440,9 @@ service glgps /system/bin/glgps -c /system/etc/gps_brcm_conf.xml
     group net_raw sdcard_rw system radio
 
 on property:dev.bootcomplete=1
-    write /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/blink_enable 0
     start setcpversion
     write /sys/block/mmcblk0/queue/scheduler row
+    write /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/state off
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -BKAL
     class main
