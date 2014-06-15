@@ -2,6 +2,7 @@ import init.black.usb.rc
 
 on early-init
     export ANDROID_CACHE /cache
+    mount debugfs /sys/kernel/debug /sys/kernel/debug
     write /sys/block/mmcblk0/queue/scheduler noop
 
 on init
@@ -62,8 +63,6 @@ on post-fs-data
 on boot
     # Set mpu freq to 1GHz at boot time.
     write /sys/power/vdd1_opp 4
-    # kernel debug
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
 
     # Enabling sleep in idle path
     write /sys/kernel/debug/pm_debug/sleep_while_idle 1
