@@ -132,6 +132,11 @@ PRODUCT_PACKAGES += \
     libOMX.TI.AMR.decode \
     libOMX.TI.G726.decode
 
+#ITTIAM OMX
+PRODUCT_PACKAGES += \
+    libOMX.TI.720P.Decoder \
+    libOMX.TI.720P.Encoder
+
 PRODUCT_PACKAGES += \
     lights.black \
     audio.a2dp.default \

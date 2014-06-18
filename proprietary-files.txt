@@ -98,9 +98,3 @@ lib/libtinyalsa.so
 lib/libmpl.so
 lib/libmllite.so
 lib/libmlplatform.so
-lib/libOMX.TI.mp4.splt.Encoder.so
-lib/libOMX.TI.h264.splt.Encoder.so
-lib/libOMX.TI.720P.Encoder.so
-lib/libOMX.TI.720P.Decoder.so
-lib/libOMX.ITTIAM.AAC.encode.so
-lib/libOMX.ITTIAM.AAC.decode.so
