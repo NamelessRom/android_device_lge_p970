@@ -23,7 +23,7 @@ TARGET_BOOTLOADER_BOARD_NAME   := black
 TARGET_PROVIDES_INIT_TARGET_RC := true
 
 TARGET_GCC_VERSION_EXP         := 4.8
-TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-cortex_a8-linux-gnueabi-linaro_4.7.4
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.7
 
 TARGET_GLOBAL_CFLAGS   += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
