@@ -10,6 +10,9 @@ on init
     export DEFAULT_BASEIMAGE /system/lib/dsp/baseimage.dof
     export QOSDYN_FILE /system/lib/dsp/qosdyn_3430.dll64P
 
+    # Preload libjhead for camera
+    export LD_PRELOAD /system/lib/libjhead.so
+
     # 2012.07.03 youmi.jun : To fix issue when CAMERA IPP enabled
     symlink /system/lib /lib
 
