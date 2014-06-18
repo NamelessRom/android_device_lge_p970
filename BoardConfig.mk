@@ -60,6 +60,9 @@ BOARD_HAVE_BLUETOOTH_BCM                    := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/p970/bluetooth
 #BOARD_HAVE_FM_RADIO                         := true
 
+#ION
+BOARD_HAVE_OLD_ION_API := true
+
 # BOARD_USES_TI_CAMERA_HAL := true
 HARDWARE_OMX := true
 ifdef HARDWARE_OMX
