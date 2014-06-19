@@ -154,6 +154,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libskia_legacy
 
+# F2FS filesystem
+PRODUCT_PACKAGES += \
+    mkfs.f2fs \
+    fsck.f2fs \
+    fibmap.f2fs \
+    f2fstat
+
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
 PRODUCT_AAPT_CONFIG := normal hdpi
