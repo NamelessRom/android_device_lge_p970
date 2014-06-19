@@ -144,7 +144,7 @@ PRODUCT_PACKAGES += \
     hwcomposer.black \
     libaudioutils \
     libtiutils \
-    libion_ti \
+    libion \
     libomap_mm_library_jni \
     libemoji
 #    camera.omap3
