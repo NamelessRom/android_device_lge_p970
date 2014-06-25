@@ -33,7 +33,7 @@ PRODUCT_PACKAGES += \
 
 # Alsa configs
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio/asound.conf:system/etc/asound.conf
+    $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
@@ -141,10 +141,11 @@ PRODUCT_PACKAGES += \
     lights.black \
     audio.a2dp.default \
     audio_policy.default \
+    audio.primary.black \
     hwcomposer.black \
     libaudioutils \
     libtiutils \
-    libion_ti \
+    libion \
     libomap_mm_library_jni \
     libemoji
 #    camera.omap3
