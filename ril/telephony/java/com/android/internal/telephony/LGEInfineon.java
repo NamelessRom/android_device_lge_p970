@@ -56,6 +56,49 @@ public class LGEInfineon extends RIL implements CommandsInterface {
 
     @Override
     public void
+    setCallForward(int action, int cfReason, int serviceClass,
+                String number, int timeSeconds, Message response) {
+        RILRequest rr
+                = RILRequest.obtain(RIL_REQUEST_SET_CALL_FORWARD, response);
+
+        rr.mParcel.writeInt(action);
+        rr.mParcel.writeInt(cfReason);
+        if (serviceClass == 0) serviceClass = 255;
+        rr.mParcel.writeInt(serviceClass);
+        rr.mParcel.writeInt(PhoneNumberUtils.toaFromString(number));
+        rr.mParcel.writeString(number);
+        rr.mParcel.writeInt (timeSeconds);
+
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest)
+                    + " " + action + " " + cfReason + " " + serviceClass
+                    + timeSeconds);
+
+        send(rr);
+    }
+
+    @Override
+    public void
+    queryCallForwardStatus(int cfReason, int serviceClass,
+                String number, Message response) {
+        RILRequest rr
+            = RILRequest.obtain(RIL_REQUEST_QUERY_CALL_FORWARD_STATUS, response);
+
+        rr.mParcel.writeInt(2); // 2 is for query action, not in use anyway
+        rr.mParcel.writeInt(cfReason);
+        if (serviceClass == 0) serviceClass = 255;
+        rr.mParcel.writeInt(serviceClass);
+        rr.mParcel.writeInt(PhoneNumberUtils.toaFromString(number));
+        rr.mParcel.writeString(number);
+        rr.mParcel.writeInt (0);
+
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest)
+                + " " + cfReason + " " + serviceClass);
+
+        send(rr);
+    }
+
+    @Override
+    public void
     hangupWaitingOrBackground (Message result) {
         RILRequest rr = RILRequest.obtain(mCallState == TelephonyManager.CALL_STATE_OFFHOOK ?
                                         RIL_REQUEST_HANGUP_WAITING_OR_BACKGROUND :
