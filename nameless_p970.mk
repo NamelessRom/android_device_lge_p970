@@ -142,6 +142,7 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio_policy.default \
     audio.primary.black \
+    audio.usb.default \
     hwcomposer.black \
     libaudioutils \
     libtiutils \
