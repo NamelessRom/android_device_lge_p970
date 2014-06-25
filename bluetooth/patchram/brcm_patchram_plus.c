@@ -102,6 +102,8 @@
 **  
 ******************************************************************************/
 
+// TODO: Integrate BCM support into Bluez hciattach
+
 #include <stdio.h>
 #include <getopt.h>
 #include <errno.h>
@@ -112,12 +114,28 @@
 
 #include <stdlib.h>
 
+#ifdef ANDROID
 #include <termios.h>
+#else
+#include <sys/termios.h>
+#include <sys/ioctl.h>
+#include <limits.h>
+#endif
 
 #include <string.h>
 #include <signal.h>
 
+#ifdef ANDROID
 #include <cutils/properties.h>
+#define LOG_TAG "brcm_patchram_plus"
+#include <cutils/log.h>
+#undef printf
+#define printf ALOGD
+#undef fprintf
+#define fprintf(x, ...) \
+  { if(x==stderr) ALOGE(__VA_ARGS__); else fprintf(x, __VA_ARGS__); }
+
+#endif //ANDROID
 
 #ifndef N_HCI
 #define N_HCI	15
@@ -147,7 +165,6 @@ int scopcm = 0;
 int i2s = 0;
 int no2bytes = 0;
 int tosleep = 0;
-int baudrate = 0;
 
 struct termios termios;
 uchar buffer[1024];
@@ -175,32 +192,29 @@ uchar hci_write_pcm_data_format[] =
 uchar hci_write_i2spcm_interface_param[] =
 	{ 0x01, 0x6d, 0xFC, 0x04, 0x00, 0x00, 0x00, 0x00 };
 
-uchar hci_write_uart_clock_setting_48Mhz[] =
-	{ 0x01, 0x45, 0xfc, 0x01, 0x01 };
-
 int
 parse_patchram(char *optarg)
 {
-	char *p;
+    char *p;
 
-	if (!(p = strrchr(optarg, '.'))) {
-		fprintf(stderr, "file %s not an HCD file\n", optarg);
-		exit(3);
-	}
+    if (!(p = strrchr(optarg, '.'))) {
+        fprintf(stderr, "file %s not an HCD file\n", optarg);
+        exit(3);
+    }
 
-	p++;
+    p++;
 
-	if (strcasecmp("hcd", p) != 0) {
-		fprintf(stderr, "file %s not an HCD file\n", optarg);
-		exit(4);
-	}
+    if (strcasecmp("hcd", p) != 0) {
+        fprintf(stderr, "file %s not an HCD file\n", optarg);
+        exit(4);
+    }
 
-	if ((hcdfile_fd = open(optarg, O_RDONLY)) == -1) {
-		fprintf(stderr, "file %s could not be opened, error %d\n", optarg, errno);
-		exit(5);
-	}
+    if ((hcdfile_fd = open(optarg, O_RDONLY)) == -1) {
+        fprintf(stderr, "file %s could not be opened, error %d\n", optarg, errno);
+        exit(5);
+    }
 
-	return(0);
+    return(0);
 }
 
 void
@@ -259,12 +273,10 @@ validate_baudrate(int baud_rate, int *value)
 int
 parse_baudrate(char *optarg)
 {
-	baudrate = atoi(optarg);
+	int baudrate = atoi(optarg);
 
 	if (validate_baudrate(baudrate, &termios_baudrate)) {
 		BRCM_encode_baud_rate(baudrate, &hci_update_baud_rate[6]);
-	} else {
-		return(1);
 	}
 
 	return(0);
@@ -654,14 +666,6 @@ proc_patchram()
 void
 proc_baudrate()
 {
-
-	if (baudrate > 3000000) {
-		hci_send_cmd(hci_write_uart_clock_setting_48Mhz,
-			sizeof(hci_write_uart_clock_setting_48Mhz));
-
-		read_event(uart_fd, buffer);
-	}
-
 	hci_send_cmd(hci_update_baud_rate, sizeof(hci_update_baud_rate));
 
 	read_event(uart_fd, buffer);
