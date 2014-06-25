@@ -179,6 +179,7 @@ struct route_setting route_main_mic[] = {
     { .ctl_name = "Analog Left Headset Mic Capture Switch", .intval = 1, },
     { .ctl_name = "Analog Right Sub Mic Capture Switch", .strval = "Off", },
     { .ctl_name = "Analog Left Main Mic Capture Switch", .strval = "Main Mic", },
+    { .ctl_name = "Analog Capture Volume", .intval = 5, },
     { .ctl_name = NULL, },
 };
 
