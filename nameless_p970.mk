@@ -95,8 +95,7 @@ PRODUCT_PACKAGES += \
     power.black \
     prb \
     lgcpversion \
-    wifimac \
-    brcm_patchram_plus
+    wifimac
 
 # OMX components
 PRODUCT_PACKAGES += \
