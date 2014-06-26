@@ -15,6 +15,7 @@
  */
 package com.android.internal.telephony;
 
+import static com.android.internal.telephony.LgeRILConstants.*;
 import static com.android.internal.telephony.RILConstants.*;
 
 import android.content.Context;
@@ -51,8 +52,6 @@ public class LGEInfineon extends RIL implements CommandsInterface {
     }
 
     protected int mCallState = TelephonyManager.CALL_STATE_IDLE;
-
-    static final int RIL_REQUEST_HANG_UP_CALL = 182;
 
     @Override
     public void
@@ -102,15 +101,13 @@ public class LGEInfineon extends RIL implements CommandsInterface {
     hangupWaitingOrBackground (Message result) {
         RILRequest rr = RILRequest.obtain(mCallState == TelephonyManager.CALL_STATE_OFFHOOK ?
                                         RIL_REQUEST_HANGUP_WAITING_OR_BACKGROUND :
-                                        RIL_REQUEST_HANG_UP_CALL,
+                                        RIL_REQUEST_LGE_HANG_UP_CALL,
                                         result);
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
         send(rr);
     }
-
-    static final int RIL_UNSOL_LGE_SIM_STATE_CHANGED = 1060;
 
     @Override
     protected void
