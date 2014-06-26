@@ -142,7 +142,7 @@ PRODUCT_PACKAGES += \
     audio_policy.default \
     audio.primary.black \
     audio.usb.default \
-    hwcomposer.black \
+    hwcomposer.omap3 \
     libaudioutils \
     libtiutils \
     libion_ti \
