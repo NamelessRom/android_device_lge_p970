@@ -42,7 +42,7 @@ endif
 # Kernel
 TARGET_KERNEL_SOURCE        := kernel/lge/p970
 TARGET_KERNEL_CONFIG        := custom_p970_defconfig
-TARGET_RECOVERY_INITRC      := device/lge/p970/recovery/init-recovery.rc
+TARGET_RECOVERY_INITRC      := device/lge/p970/recovery/init.recovery.rc
 TARGET_SPECIFIC_HEADER_PATH := device/lge/p970/include
 
 TARGET_USERIMAGES_USE_EXT4         := true
