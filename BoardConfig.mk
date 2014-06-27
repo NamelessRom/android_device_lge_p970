@@ -101,10 +101,8 @@ TARGET_HAS_LEGACY_WLAN           := true
 BOARD_EGL_CFG       := device/lge/p970/configs/egl.cfg
 ENABLE_WEBGL        := true
 USE_OPENGL_RENDERER := true
-#TARGET_DISABLE_TRIPLE_BUFFERING := true
 
 BOARD_USE_BGRA_8888               := true
-BOARD_USE_SYSTEMUI_PBSIZE_HACK    := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 
 BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/lge/p970/vibrator.c
