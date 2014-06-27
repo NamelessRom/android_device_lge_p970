@@ -150,11 +150,6 @@ PRODUCT_PACKAGES += \
     libemoji
 #    camera.omap3
 
-# legacy version of skia
-# fixes the app switcher previews
-PRODUCT_PACKAGES += \
-    libskia_legacy
-
 # F2FS filesystem
 PRODUCT_PACKAGES += \
     mkfs.f2fs \
