@@ -1,6 +1,3 @@
-#
-# system.prop for p970
-#
 ## Enable OMAP stuffs
 com.ti.omap_enhancement=true
 ro.sf.lcd_density=240
@@ -31,48 +28,22 @@ ro.bq.gpu_to_cpu_unsupported=1
 ## CUSTOM
 # Render UI with GPU
 debug.sf.hw=1
-# Better Responsiveness & Speed
-windowsmgr.max_events_per_sec=90
-ro.max.fling_velocity=12000
-ro.min.fling_velocity=8000
 # Save battery
 wifi.supplicant_scan_interval=300
 pm.sleep_mode=1
-# ADB Notify
-#persist.adb.notify=0
 # Increase overall touch responsiveness
 debug.performance.tuning=1
 video.accelerate.hw=1
 debug.egl.profiler=1
 debug.egl.hw=1
 debug.composition.type=gpu
-# Photo and video recording quality tweak
-ro.media.enc.hprof.vid.bps=5500000
-ro.media.dec.jpeg.memcap=5500000
-ro.media.capture.maxres=5m
-ro.media.capture.fast.fps=4
-ro.media.capture.slow.fps=60
-ro.media.panorama.defres=2592x1944
-ro.media.panorama.frameres=1280x720
-ro.camcorder.videoModes=true
-ro.media.enc.hprof.vid.fps=30
-ro.media.cam.preview.fps=0
 # Proximity
 ro.lge.proximity.delay=25
 mot.proximity.delay=25
 # CheckJNI
 ro.kernel.android.checkjni=0
 dalvik.vm.checkjni=0
-# Phone will not wake up from hitting the volume rocker
-#ro.config.hwfeature_wakeupkey=0
-# Force button lights on when screen is on
-#ro.mot.buttonlight.timeout=0
-# Bootanimation
-debug.sf.nobootanimation=0
 # Miscellaneous flags
-#ro.config.hw_menu_unlockscreen=false
-#persist.sys.use_dithering=0
-#persist.sys.purgeable_assets=1
 dalvik.vm.dexopt-flags=m=y
 dalvik.vm.verify-bytecode=false
 ro.mot.eri.losalert.delay=1000
