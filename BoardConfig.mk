@@ -29,6 +29,8 @@ TARGET_KERNEL_CUSTOM_TOOLCHAIN_FULL := \
 TARGET_GLOBAL_CFLAGS   += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 
+TARGET_THUMB_O3	:= true
+
 BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
 BOARD_KERNEL_BASE    := 0x80000000
 BOARD_PAGE_SIZE      := 0x00000800
@@ -61,7 +63,6 @@ BOARD_HAVE_BLUETOOTH                        := true
 BOARD_HAVE_BLUETOOTH_BCM                    := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/p970/bluetooth
 BOARD_BLUEDROID_VENDOR_CONF                 := device/lge/p970/bluetooth/libbt_vndcfg.txt
-#BOARD_HAVE_FM_RADIO                         := true
 
 # ION
 BOARD_HAVE_OLD_ION_API := true
@@ -75,9 +76,9 @@ TARGET_USE_OMX_RECOVERY   := true
 TARGET_USE_OMAP_COMPAT    := true
 BUILD_WITH_TI_AUDIO       := 1
 BUILD_PV_VIDEO_ENCODERS   := 1
-OMX_VENDOR_INCLUDES := \
-   hardware/ti/omap3/omx/system/src/openmax_il/omx_core/inc \
-   hardware/ti/omap3/omx/image/src/openmax_il/jpeg_enc/inc
+OMX_VENDOR_INCLUDES       := \
+        hardware/ti/omap3/omx/system/src/openmax_il/omx_core/inc \
+        hardware/ti/omap3/omx/image/src/openmax_il/jpeg_enc/inc
 OMX_VENDOR_WRAPPER       := TI_OMX_Wrapper
 BOARD_OPENCORE_LIBRARIES := libOMX_Core
 BOARD_OPENCORE_FLAGS     := -DHARDWARE_OMX=1
