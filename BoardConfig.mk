@@ -59,7 +59,7 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_HAVE_BLUETOOTH                        := true
 BOARD_HAVE_BLUETOOTH_BCM                    := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/p970/bluetooth
-BOARD_BLUEDROID_VENDOR_CONF := device/lge/p970/bluetooth/libbt_vndcfg.txt
+BOARD_BLUEDROID_VENDOR_CONF                 := device/lge/p970/bluetooth/libbt_vndcfg.txt
 #BOARD_HAVE_FM_RADIO                         := true
 
 # ION
@@ -101,11 +101,11 @@ TARGET_HAS_LEGACY_WLAN           := true
 BOARD_EGL_CFG       := device/lge/p970/configs/egl.cfg
 ENABLE_WEBGL        := true
 USE_OPENGL_RENDERER := true
-#TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 #TARGET_DISABLE_TRIPLE_BUFFERING := true
 
-COMMON_GLOBAL_CFLAGS += -DSYSTEMUI_PBSIZE_HACK=1
-COMMON_GLOBAL_CFLAGS += -DWORKAROUND_BUG_10194508=1
+BOARD_USE_BGRA_8888               := true
+BOARD_USE_SYSTEMUI_PBSIZE_HACK    := true
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
 
 BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/lge/p970/vibrator.c
 BOARD_SYSFS_LIGHT_SENSOR          := "/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/leds/lcd-backlight/als"
@@ -121,7 +121,7 @@ BOARD_RIL_CLASS := ../../../device/lge/p970/ril/
 COMMON_GLOBAL_CFLAGS += -DICS_CAMERA_BLOB -DOMAP_ICS_CAMERA -DCAMERA_LEGACY_HACK
 
 # Use cm powerhal
-TARGET_POWERHAL_VARIANT := cm
+TARGET_POWERHAL_VARIANT    := cm
 TARGET_USES_CPU_BOOST_HINT := true
 
 # Fix Graphics Issues
