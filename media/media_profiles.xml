@@ -239,7 +239,7 @@
          or query the capabilities of the codec at all if it is disabled
     -->
     <VideoEncoderCap name="h264" enabled="true"
-        minBitRate="64000" maxBitRate="10000000"
+        minBitRate="64000" maxBitRate="17000000"
         minFrameWidth="96" maxFrameWidth="1280"
         minFrameHeight="96" maxFrameHeight="1280"
         minFrameRate="5" maxFrameRate="33" />
