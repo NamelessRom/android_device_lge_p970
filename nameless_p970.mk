@@ -92,9 +92,8 @@ PRODUCT_PACKAGES += \
     charger_res_images
 
 PRODUCT_PACKAGES += \
-    power.black \
-    prb \
     lgcpversion \
+    prb \
     wifimac
 
 # OMX components
@@ -131,24 +130,28 @@ PRODUCT_PACKAGES += \
     libOMX.TI.AMR.decode \
     libOMX.TI.G726.decode
 
-#ITTIAM OMX
+# ITTIAM OMX
 PRODUCT_PACKAGES += \
     libOMX.TI.720P.Decoder \
     libOMX.TI.720P.Encoder
 
+# OMAP3
 PRODUCT_PACKAGES += \
-    lights.black \
+    hwcomposer.omap3 \
+    power.omap3
+#    camera.omap3
+
+PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio_policy.default \
     audio.primary.black \
     audio.usb.default \
-    hwcomposer.omap3 \
     libaudioutils \
-    libtiutils \
+    libemoji \
     libion_ti \
     libomap_mm_library_jni \
-    libemoji
-#    camera.omap3
+    libtiutils \
+    lights.black
 
 # legacy version of skia
 # fixes the app switcher previews
