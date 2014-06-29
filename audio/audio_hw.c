@@ -2098,7 +2098,7 @@ static int adev_open_input_stream(struct audio_hw_device *dev,
 
     in->dev = ladev;
     in->standby = 1;
-    in->device = devices;
+    in->device = devices & ~AUDIO_DEVICE_BIT_IN;
 
     *stream_in = &in->stream;
     return 0;
