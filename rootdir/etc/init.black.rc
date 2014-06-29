@@ -411,6 +411,9 @@ on boot
     write /sys/block/mmcblk0/queue/add_random 0
     write /sys/block/mmcblk1/queue/add_random 0
 
+    write /proc/sys/vm/highmem_is_dirtyable 1
+    write /proc/sys/vm/min_free_kbytes 4096
+
 service prb /sbin/prb
     user root
     disabled
