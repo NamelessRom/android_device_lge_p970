@@ -34,8 +34,8 @@
 /******************************************************************************/
 
 #define LCD_FILE "/sys/class/leds/lcd-backlight/brightness"
-#define LCD_STATE "/sys/class/leds/lcd-backlight/onoff"
 
+#define LED_ON_OFF "/sys/class/i2c-dev/i2c-2/device/2-001a/onoff"
 #define LED_PATH "/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/"
 
 enum CYCLE {
@@ -250,6 +250,9 @@ set_light_buttons(struct light_device_t *dev,
     int value[LEDS];
     int brightness = rgb_to_brightness(state);
     write_string(LED_PATH "button", brightness ? "1" : "0", 1);
+    write_string(LED_ON_OFF, brightness ? "1" : "0", 1);
+
+    ALOGD("liblights: set_light_buttons: %d", brightness);
     return 0;
 }
 
