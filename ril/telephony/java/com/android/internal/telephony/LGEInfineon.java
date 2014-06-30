@@ -150,7 +150,8 @@ public class LGEInfineon extends RIL implements CommandsInterface {
                     resp[0] = ((String[])ret)[0];
                     resp[1] = null;
                 }
-                if (resp[1].length()%2 == 0 && resp[1].matches("[0-9A-F]+")) {
+                if (resp[1] != null && resp[1].length() %2 == 0
+                    && resp[1].matches("[0-9A-F]+")) {
                     try { 
                         resp[1] = new String(hexStringToByteArray(resp[1]), "UTF-16");
                     } catch (java.io.UnsupportedEncodingException uex) { 
@@ -161,8 +162,7 @@ public class LGEInfineon extends RIL implements CommandsInterface {
                 }
                 if (RILJ_LOGD) unsljLogMore(response, resp[0]);
                 if (mUSSDRegistrant != null) {
-                    mUSSDRegistrant.notifyRegistrant(
-                        new AsyncResult (null, resp, null));
+                    mUSSDRegistrant.notifyRegistrant(new AsyncResult(null, resp, null));
                 }
                 break;
             case RIL_UNSOL_LGE_SIM_STATE_CHANGED:
