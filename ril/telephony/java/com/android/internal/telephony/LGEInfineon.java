@@ -110,6 +110,16 @@ public class LGEInfineon extends RIL implements CommandsInterface {
         send(rr);
     }
 
+    private static byte[] hexStringToByteArray(String s) {
+        int len = s.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+                    + Character.digit(s.charAt(i+1), 16));
+        }
+        return data;
+    }
+
     static final int RIL_UNSOL_LGE_SIM_STATE_CHANGED = 1060;
 
     @Override
@@ -132,6 +142,29 @@ public class LGEInfineon extends RIL implements CommandsInterface {
                 return;
         }
         switch(response) {
+            case RIL_UNSOL_ON_USSD:
+                String[] resp = (String[])ret;
+
+                if (resp.length < 2) {
+                    resp = new String[2];
+                    resp[0] = ((String[])ret)[0];
+                    resp[1] = null;
+                }
+                if (resp[1].length()%2 == 0 && resp[1].matches("[0-9A-F]+")) {
+                    try { 
+                        resp[1] = new String(hexStringToByteArray(resp[1]), "UTF-16");
+                    } catch (java.io.UnsupportedEncodingException uex) { 
+                        // encoding not supported, should never get here 
+                    } catch (java.io.IOException iox) { 
+                        // you will get here if the original sequence wasn't UTF-8 or ASCII 
+                    } 
+                }
+                if (RILJ_LOGD) unsljLogMore(response, resp[0]);
+                if (mUSSDRegistrant != null) {
+                    mUSSDRegistrant.notifyRegistrant(
+                        new AsyncResult (null, resp, null));
+                }
+                break;
             case RIL_UNSOL_LGE_SIM_STATE_CHANGED:
                 if (RILJ_LOGD) unsljLog(response);
 
