@@ -33,6 +33,8 @@ import java.text.SimpleDateFormat;
 
 public class LGEInfineon extends RIL implements CommandsInterface {
 
+    private static final boolean DBG = true; // switch to false
+
     public LGEInfineon(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription);
         PhoneStateListener mPhoneStateListener = new PhoneStateListener() {
@@ -69,7 +71,7 @@ public class LGEInfineon extends RIL implements CommandsInterface {
         rr.mParcel.writeString(number);
         rr.mParcel.writeInt (timeSeconds);
 
-        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest)
+        if (DBG) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest)
                     + " " + action + " " + cfReason + " " + serviceClass
                     + timeSeconds);
 
@@ -91,7 +93,7 @@ public class LGEInfineon extends RIL implements CommandsInterface {
         rr.mParcel.writeString(number);
         rr.mParcel.writeInt (0);
 
-        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest)
+        if (DBG) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest)
                 + " " + cfReason + " " + serviceClass);
 
         send(rr);
@@ -105,7 +107,7 @@ public class LGEInfineon extends RIL implements CommandsInterface {
                                         RIL_REQUEST_HANG_UP_CALL,
                                         result);
 
-        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
+        if (DBG) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
         send(rr);
     }
@@ -150,7 +152,8 @@ public class LGEInfineon extends RIL implements CommandsInterface {
                     resp[0] = ((String[])ret)[0];
                     resp[1] = null;
                 }
-                if (resp[1].length()%2 == 0 && resp[1].matches("[0-9A-F]+")) {
+                if (resp[1] != null && resp[1].length() %2 == 0
+                    && resp[1].matches("[0-9A-F]+")) {
                     try { 
                         resp[1] = new String(hexStringToByteArray(resp[1]), "UTF-16");
                     } catch (java.io.UnsupportedEncodingException uex) { 
@@ -159,21 +162,20 @@ public class LGEInfineon extends RIL implements CommandsInterface {
                         // you will get here if the original sequence wasn't UTF-8 or ASCII 
                     } 
                 }
-                if (RILJ_LOGD) unsljLogMore(response, resp[0]);
+                if (DBG) unsljLogMore(response, resp[0]);
                 if (mUSSDRegistrant != null) {
-                    mUSSDRegistrant.notifyRegistrant(
-                        new AsyncResult (null, resp, null));
+                    mUSSDRegistrant.notifyRegistrant(new AsyncResult(null, resp, null));
                 }
                 break;
             case RIL_UNSOL_LGE_SIM_STATE_CHANGED:
-                if (RILJ_LOGD) unsljLog(response);
+                if (DBG) unsljLog(response);
 
                 if (mIccStatusChangedRegistrants != null) {
                     mIccStatusChangedRegistrants.notifyRegistrants();
                 }
                 break;
             case RIL_UNSOL_NITZ_TIME_RECEIVED:
-                if (RILJ_LOGD) unsljLogRet(response, ret);
+                if (DBG) unsljLogRet(response, ret);
 
                 // has bonus long containing milliseconds since boot that the NITZ
                 // time was received
@@ -188,7 +190,7 @@ public class LGEInfineon extends RIL implements CommandsInterface {
                         TelephonyProperties.PROPERTY_IGNORE_NITZ, false);
 
                 if (ignoreNitz) {
-                    if (RILJ_LOGD) riljLog("ignoring UNSOL_NITZ_TIME_RECEIVED");
+                    if (DBG) riljLog("ignoring UNSOL_NITZ_TIME_RECEIVED");
                 } else {
                     if (mNITZTimeRegistrant != null) {
 
