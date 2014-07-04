@@ -358,18 +358,20 @@ on boot
 # gps permissions
     chown system system /sys/devices/platform/hub_gps_gpio/poweron
     chown system system /sys/devices/platform/hub_gps_gpio/reset
-    chown system system /dev/ttyO0
     chown system system /dev/pts17
+    chmod 0660 /dev/ttyO0
+    chown gps system /dev/ttyO0
     mkdir /data/gps
-    chmod 777 /data/gps
-    chown system system /data/gps
+    chmod 770 /data/gps
+    chown gps system /data/gps
     mkdir /data/gps/var
-    chmod 777 /data/gps/var
+    chmod 770 /data/gps/var
     mkdir /data/gps/var/run
-    chmod 777 /data/gps/var/run
+    chmod 770 /data/gps/var/run
     mkdir /data/gps/log
-    chmod 777 /data/gps/log
+    chmod 770 /data/gps/log
     chown system system /data/gps/log
+
     mkdir /data/cache
     chmod 777 /data/cache
     chown system system /data/cache
