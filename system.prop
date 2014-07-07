@@ -55,3 +55,5 @@ ro.config.hw_quickpoweron=true
 ro.ril.def.agps.mode=1
 ro.ril.def.agps.feature=1
 ro.ril.enable.dtm=1
+# Disable docking support
+config.disable_dock=true
