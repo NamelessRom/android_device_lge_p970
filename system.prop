@@ -57,3 +57,5 @@ ro.ril.def.agps.feature=1
 ro.ril.enable.dtm=1
 # Disable Atlas service
 config.disable_atlas=true
+# Disable docking support
+config.disable_dock=true
