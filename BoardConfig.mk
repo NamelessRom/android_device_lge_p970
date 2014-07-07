@@ -125,24 +125,8 @@ COMMON_GLOBAL_CFLAGS += -DICS_CAMERA_BLOB -DOMAP_ICS_CAMERA -DCAMERA_LEGACY_HACK
 TARGET_POWERHAL_VARIANT    := cm
 TARGET_USES_CPU_BOOST_HINT := true
 
-# Fix Graphics Issues
-PRODUCT_PROPERTY_OVERRIDES += \
-        ro.zygote.disable_gl_preload=true \
-        ro.bq.gpu_to_cpu_unsupported=true \
-        dalvik.vm.debug.alloc=0 \
-        ro.hwui.disable_scissor_opt=true
-
 # No, we dont want METADATA -.-
 SKIP_SET_METADATA := true
-
-# Additional Props
-PRODUCT_PROPERTY_OVERRIDES += \
-        ro.config.low_ram=true \
-        dalvik.vm.jit.codecachesize=0
-
-# adb root
-ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=0 \
-        ro.secure=0
 
 # Misc Flags
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/omap/musb-omap2430/musb-hdrc/gadget/lun%d/file"

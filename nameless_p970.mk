@@ -162,6 +162,23 @@ PRODUCT_PACKAGES += \
 
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
+# Fix Graphics Issues
+PRODUCT_PROPERTY_OVERRIDES += \
+        ro.zygote.disable_gl_preload=true \
+        ro.bq.gpu_to_cpu_unsupported=true \
+        dalvik.vm.debug.alloc=0 \
+        ro.hwui.disable_scissor_opt=true
+
+# Additional Props
+PRODUCT_PROPERTY_OVERRIDES += \
+        ro.config.low_ram=true \
+        dalvik.vm.jit.codecachesize=0
+
+# adb root
+ADDITIONAL_DEFAULT_PROPERTIES += \
+        ro.adb.secure=0 \
+        ro.secure=0
+
 PRODUCT_AAPT_CONFIG := normal hdpi
 
 PRODUCT_NAME := nameless_p970
