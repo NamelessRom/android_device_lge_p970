@@ -92,6 +92,9 @@ bin/pvrsrvctl
 bin/fw3a_core
 bin/rild
 bin/pvrsrvinit
+lib/hw/audio_policy.default.so
+lib/hw/audio.primary.default.so
+lib/libtinyalsa.so
 lib/libmpl.so
 lib/libmllite.so
 lib/libmlplatform.so

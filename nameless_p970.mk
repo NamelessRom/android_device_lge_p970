@@ -33,7 +33,7 @@ PRODUCT_PACKAGES += \
 
 # Alsa configs
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf
+    $(LOCAL_PATH)/audio/asound.conf:system/etc/asound.conf
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
@@ -144,7 +144,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio_policy.default \
-    audio.primary.black \
     audio.usb.default \
     libaudioutils \
     libemoji \
