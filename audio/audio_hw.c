@@ -89,6 +89,10 @@
 /* sampling rate when using VX port for wide band */
 #define VX_WB_SAMPLING_RATE 16000
 
+/* Incall Voice Volumes  */
+#define MAX_VOICE_VOLUME 40
+#define MIN_VOICE_VOLUME 10
+
 struct route_setting
 {
     char *ctl_name;
@@ -206,7 +210,6 @@ struct route_setting route_input_standby[] = {
 };
 
 struct route_setting route_voicecall_headset[] = {
-    { .ctl_name = "DAC Voice Digital Downlink Volume", .intval = 34, },
     { .ctl_name = "Voice", .strval = "Headset", },
     { .ctl_name = "ExtAmp", .strval = "Headsetcall", },
     { .ctl_name = "Analog Left Main Mic Capture Switch", .intval = 1, },
@@ -216,7 +219,6 @@ struct route_setting route_voicecall_headset[] = {
 };
 
 struct route_setting route_voicecall_speaker[] = {
-    { .ctl_name = "DAC Voice Digital Downlink Volume", .intval = 34, },
     { .ctl_name = "Voice", .strval = "Speaker", },
     { .ctl_name = "ExtAmp", .strval = "Spkcall", },
     { .ctl_name = "Analog Left Main Mic Capture Switch", .intval = 1, },
@@ -226,7 +228,6 @@ struct route_setting route_voicecall_speaker[] = {
 };
 
 struct route_setting route_voicecall_earpiece[] = {
-    { .ctl_name = "DAC Voice Digital Downlink Volume", .intval = 37, },
     { .ctl_name = "Voice", .strval = "Receiver", },
     { .ctl_name = "ExtAmp", .strval = "OFF", },
     { .ctl_name = "Analog Left Main Mic Capture Switch", .intval = 1, },
@@ -291,6 +292,7 @@ struct omap_audio_device {
     int out_device;
     int in_device;
     int in_call;
+    float voice_volume;
     struct omap_stream_in *active_input;
     struct omap_stream_out *active_output;
     bool mic_mute;
@@ -520,6 +522,7 @@ static void select_mode(struct omap_audio_device *adev)
             } else
                 adev->out_device &= ~AUDIO_DEVICE_OUT_SPEAKER;
             select_output_device(adev);
+            adev_set_voice_volume(&adev->hw_device, adev->voice_volume);
             adev->in_call = 1;
         }
     } else {
@@ -1970,8 +1973,18 @@ static int adev_init_check(const struct audio_hw_device *dev)
 static int adev_set_voice_volume(struct audio_hw_device *dev, float volume)
 {
     struct omap_audio_device *adev = (struct omap_audio_device *)dev;
+    int j;
 
     LOGFUNC("%s(%p, %f)", __FUNCTION__, dev, volume);
+    adev->voice_volume = volume;
+
+    struct mixer_ctl *ctl = mixer_get_ctl_by_name(adev->mixer,
+        "DAC Voice Digital Downlink Volume");
+
+    for (j = 0; j < mixer_ctl_get_num_values(ctl); j++) {
+        mixer_ctl_set_value(ctl, j,
+            MIN_VOICE_VOLUME + volume * (MAX_VOICE_VOLUME - MIN_VOICE_VOLUME));
+    }
 
     return 0;
 }
@@ -2207,6 +2220,7 @@ static int adev_open(const hw_module_t* module, const char* name,
     adev->in_device = AUDIO_DEVICE_IN_BUILTIN_MIC & ~AUDIO_DEVICE_BIT_IN;
     select_output_device(adev);
 
+    adev->voice_volume = 1.0f;
     adev->tty_mode = TTY_MODE_OFF;
 
     adev->input_requires_stereo = 0;
