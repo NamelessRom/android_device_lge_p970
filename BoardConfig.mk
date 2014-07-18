@@ -109,7 +109,7 @@ BOARD_USE_BGRA_8888               := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 
 BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/lge/p970/vibrator.c
-BOARD_SYSFS_LIGHT_SENSOR          := "/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/leds/lcd-backlight/als"
+BOARD_SYSFS_LIGHT_SENSOR          := "/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/backlight_mode"
 
 COMMON_GLOBAL_CFLAGS           += -DNEEDS_VECTORIMPL_SYMBOLS -DHAS_CONTEXT_PRIORITY -DDONT_USE_FENCE_SYNC
 COMMON_GLOBAL_CFLAGS           += -DBOARD_CHARGING_CMDLINE_NAME='"rs"' -DBOARD_CHARGING_CMDLINE_VALUE='"c"'
