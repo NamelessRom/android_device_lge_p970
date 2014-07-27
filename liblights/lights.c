@@ -34,116 +34,157 @@
 /******************************************************************************/
 
 #define LCD_FILE "/sys/class/leds/lcd-backlight/brightness"
-
-#define LED_ON_OFF "/sys/class/i2c-dev/i2c-2/device/2-001a/onoff"
 #define LED_PATH "/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/"
 
 enum CYCLE {
-	CYCLE_131_MS = 0,
-	CYCLE_0_52_S = 1,
-	CYCLE_1_05_S = 2,
-	CYCLE_2_10_S = 3,
-	CYCLE_4_19_S = 4,
-	CYCLE_8_39_S = 5,
-	CYCLE_12_6_S = 6,
-	CYCLE_16_8_S = 7,
+    CYCLE_131_MS = 0,
+    CYCLE_0_52_S = 1,
+    CYCLE_1_05_S = 2,
+    CYCLE_2_10_S = 3,
+    CYCLE_4_19_S = 4,
+    CYCLE_8_39_S = 5,
+    CYCLE_12_6_S = 6,
+    CYCLE_16_8_S = 7,
 };
 
 static const char *cycle_str[] = {
-	[CYCLE_131_MS] = "131 ms",
-	[CYCLE_0_52_S] = "0.52 s",
-	[CYCLE_1_05_S] = "1.05 s",
-	[CYCLE_2_10_S] = "2.10 s",
-	[CYCLE_4_19_S] = "4.19 s",
-	[CYCLE_8_39_S] = "8.39 s",
-	[CYCLE_12_6_S] = "12.6 s",
-	[CYCLE_16_8_S] = "16.8 s",
+    [CYCLE_131_MS] = "131 ms",
+    [CYCLE_0_52_S] = "0.52 s",
+    [CYCLE_1_05_S] = "1.05 s",
+    [CYCLE_2_10_S] = "2.10 s",
+    [CYCLE_4_19_S] = "4.19 s",
+    [CYCLE_8_39_S] = "8.39 s",
+    [CYCLE_12_6_S] = "12.6 s",
+    [CYCLE_16_8_S] = "16.8 s",
 };
 
 enum WAVE {
-	WAVE_17 = 0,		// 12222222
-	WAVE_26 = 1,		// 11222222
-	WAVE_35 = 2,		// 11122222
-	WAVE_44 = 3,		// 11112222
-	WAVE_53 = 4,		// 11111222
-	WAVE_62 = 5,		// 11111122
-	WAVE_71 = 6,		// 11111112
-	WAVE_8 = 7,		// 11111111
-	WAVE_224 = 8,		// 11221111
-	WAVE_422 = 9,		// 11112211
-	WAVE_12221 = 10,	// 12211221
-	WAVE_2222 = 11,		// 11221122
-	WAVE_143 = 12,		// 12222111
-	WAVE_242 = 13,		// 11222211
-	WAVE_351 = 14,		// 11122221
-	WAVE_11111111 = 15,	// 12121212 // seems to stay longer in 1 at SLOPE_4TH
+    WAVE_17 = 0,        // 12222222
+    WAVE_26 = 1,        // 11222222
+    WAVE_35 = 2,        // 11122222
+    WAVE_44 = 3,        // 11112222
+    WAVE_53 = 4,        // 11111222
+    WAVE_62 = 5,        // 11111122
+    WAVE_71 = 6,        // 11111112
+    WAVE_8 = 7,         // 11111111
+    WAVE_224 = 8,       // 11221111
+    WAVE_422 = 9,       // 11112211
+    WAVE_12221 = 10,    // 12211221
+    WAVE_2222 = 11,     // 11221122
+    WAVE_143 = 12,      // 12222111
+    WAVE_242 = 13,      // 11222211
+    WAVE_351 = 14,      // 11122221
+    WAVE_11111111 = 15, // 12121212 // seems to stay longer in 1 at SLOPE_4TH
 };
 
 enum SLOPE {
-	SLOPE_0 = 0,
-	SLOPE_16TH = 1,
-	SLOPE_8TH = 2,
-	SLOPE_4TH = 3,
+    SLOPE_0 = 0,
+    SLOPE_16TH = 1,
+    SLOPE_8TH = 2,
+    SLOPE_4TH = 3,
 };
 
-enum LED {
-	MENU,
-	HOME,
-	BACK,
-	SEARCH,
-	BLUELEFT,
-	BLUERIGHT,
-	LED_FIRST = MENU,
-	LED_LAST = BLUERIGHT,
+enum KEY_LED {
+    MENU,
+    HOME,
+    BACK,
+    SEARCH,
+    BLUELEFT,
+    BLUERIGHT,
+
+    KEY_LED_MIN = MENU,
+    KEY_LED_MAX = BLUERIGHT,
+
+    KEY_LED_WMIN = MENU,
+    KEY_LED_WMAX = SEARCH,
+    KEY_LED_BMIN = BLUELEFT,
+    KEY_LED_BMAX = BLUERIGHT,
 };
+
+#define KEY_LED_WMSUM (KEY_LED_WMAX + KEY_LED_WMIN)
+
+#define IS_WHITE(led) (led >= KEY_LED_WMIN && led <= KEY_LED_WMAX)
 
 #define INV 256
 
-#define LEDS 6
+#define LEDS (KEY_LED_MAX - KEY_LED_MIN + 1)
 
-static int
-write_string(char const* path, const char* str, int len)
+static int write_string(const char *path, const char *str, int len)
 {
     static int already_warned = 0;
 
     int fd = open(path, O_WRONLY);
+
     if (fd >= 0) {
         int amt = write(fd, str, len);
         close(fd);
         return amt == -1 ? -errno : 0;
     } else {
         if (already_warned == 0) {
-            ALOGE("liblights: write_int failed to open %s\n", path);
+            ALOGE("liblights: write_string failed to open %s\n", path);
             already_warned = 1;
         }
         return -errno;
     }
 }
 
-static int
-rgb_to_brightness(struct light_state_t const* state)
+static int write_int(const char *path, int val)
 {
-    int color = state->color & 0x00ffffff;
-    return ((77*((color>>16)&0x00ff))
-            + (150*((color>>8)&0x00ff)) + (29*(color&0x00ff))) >> 8;
+    char buf[128] = {0};
+    int len = snprintf(buf, sizeof(buf), "%d", val);
+
+    return write_string(path, buf, len);
+}
+
+#define RGB_COEFF_AVG(color, r, g, b) \
+    ((r * ((color >> 16) & 0xff)) \
+        + (g * ((color >> 8) & 0xff)) + (b * (color & 0xff))) / (r + g + b);
+
+static int rgb_to_brightness(int color)
+{
+    return RGB_COEFF_AVG(color, 77, 150, 29);
+}
+
+struct wb {
+    int white;
+    int blue;
+};
+
+static struct wb rgb_to_wb(int color)
+{
+    int white = RGB_COEFF_AVG(color, 87, 169, 0);
+    int blue = (color & 0xff) - white;
+
+    if (blue < 0) {
+        white = RGB_COEFF_AVG(color, 77, 150, 29);
+        blue = 0;
+    }
+
+    return (struct wb) {
+        .white = white,
+        .blue = blue,
+    };
 }
 
 struct pattern {
+    int special;
     enum CYCLE cycle;
     enum SLOPE slope;
     enum WAVE waves[LEDS]; // from left to right, white to blue, i.e. MENU, HOME, BACK, SEARCH, BLUELEFT, BLUERIGHT
 };
 
-static struct pattern b(enum WAVE wave)
+static struct pattern b(enum CYCLE cycle, enum WAVE wave)
 {
     struct pattern pattern = {
-        .cycle = CYCLE_2_10_S,
+        .cycle = cycle,
         .slope = SLOPE_4TH,
     };
-    enum LED led;
-    for (led = LED_FIRST; led <= LED_LAST; ++led) {
+    enum KEY_LED led;
+
+    for (led = KEY_LED_MIN; led <= KEY_LED_MAX; ++led) {
         pattern.waves[led] = wave;
     }
+
     return pattern;
 }
 
@@ -160,165 +201,208 @@ static int cycle_from_flashMS(int flashMS)
     return CYCLE_16_8_S;
 }
 
+static enum WAVE special_waves[][LEDS] = {
+    {WAVE_143, WAVE_242, WAVE_351, WAVE_44, WAVE_8 | INV, WAVE_8 | INV},
+    {WAVE_26 | INV, WAVE_224, WAVE_422, WAVE_62, WAVE_8 | INV, WAVE_8 | INV},
+    {WAVE_44, WAVE_44 | INV, WAVE_44 | INV, WAVE_44, WAVE_8 | INV, WAVE_8 | INV},
+};
+
+#define ARRAY_SIZE(x) (sizeof(x) / sizeof(*x))
+
 static struct pattern pattern_from_light_state(struct light_state_t const* state)
 {
     int flashMS = state->flashOnMS + state->flashOffMS;
     int ratio;
+    enum CYCLE cycle = CYCLE_2_10_S;
 
-    ALOGD("liblights: flashMode %d\n", state->flashMode);
-    ALOGD("liblights: flashMs off %d on %d\n", state->flashOffMS, state->flashOnMS);
+    ALOGD("liblights: flashMode %d, flashOff %d, flashOn %d\n",
+        state->flashMode, state->flashOffMS, state->flashOnMS);
 
-    if (state->flashMode == LIGHT_FLASH_HARDWARE) {
-        return b(WAVE_44);
-    } else if (state->flashMode != LIGHT_FLASH_TIMED) {
-        return b(WAVE_8 | INV);
-    } else if (state->flashOnMS == 0) {
-        return b(WAVE_8);
-    } else if (state->flashOffMS == 0) {
+    if (state->flashMode == LIGHT_FLASH_HARDWARE)
+        return b(cycle, WAVE_44);
+
+    if (state->flashMode != LIGHT_FLASH_TIMED) // off
+        return b(cycle, WAVE_8 | INV);
+
+    if (state->flashOnMS == 0) // off
+        return b(cycle, WAVE_8 | INV);
+
+    if (state->flashOffMS == 0) {
         switch (state->flashOnMS) {
+        case 1: // always on
+            return b(cycle, WAVE_8);
         case 5000:
-        {
-            struct pattern pattern = {
-                .cycle = CYCLE_4_19_S,
-                .slope = SLOPE_16TH,
-                .waves = {WAVE_143, WAVE_242, WAVE_351, WAVE_44, WAVE_8 | INV, WAVE_8 | INV},
-            };
-            return pattern;
-        }
+            cycle = CYCLE_4_19_S;
+            break;
         case 2500:
-        {
-            struct pattern pattern = {
-                .cycle = CYCLE_2_10_S,
-                .slope = SLOPE_16TH,
-                .waves = {WAVE_143, WAVE_242, WAVE_351, WAVE_44, WAVE_8 | INV, WAVE_8 | INV},
-            };
-            return pattern;
-        }
+            cycle = CYCLE_2_10_S;
+            break;
         case 1000:
-        {
-            struct pattern pattern = {
-                .cycle = CYCLE_8_39_S,
-                .slope = SLOPE_8TH,
-                .waves = {WAVE_26 | INV, WAVE_224, WAVE_422, WAVE_62, WAVE_8 | INV, WAVE_8 | INV},
-            };
-            return pattern;
-        }
+            cycle = CYCLE_1_05_S;
+            break;
         case 500:
-        {
-            struct pattern pattern = {
-                .cycle = CYCLE_4_19_S,
-                .slope = SLOPE_16TH,
-                .waves = {WAVE_26, WAVE_224 | INV, WAVE_422 | INV, WAVE_62 | INV, WAVE_8 | INV, WAVE_8 | INV},
-            };
-            return pattern;
-        }
+            cycle = CYCLE_0_52_S;
+            break;
         case 250:
-        {
-            struct pattern pattern = {
-                .cycle = CYCLE_1_05_S,
-                .waves = {WAVE_44, WAVE_44 | INV, WAVE_44 | INV, WAVE_44, WAVE_8 | INV, WAVE_8 | INV},
-            };
-            return pattern;
+            cycle = CYCLE_131_MS;
+            break;
         }
-        default:
-            ALOGW("liblights: Unknown special mode: %d - keeping always on\n", state->flashOnMS);
-        case 1: // ALWAYS ON
-            return b(WAVE_8);
-        }
+
+        return (struct pattern) {
+            .special = 1,
+            .cycle = cycle,
+        };
     }
-    struct pattern pattern = b(7 * state->flashOffMS / flashMS);
-    pattern.cycle = cycle_from_flashMS(flashMS);
-    return pattern;
+
+    cycle = cycle_from_flashMS(flashMS);
+
+    return b(cycle, 7 * state->flashOffMS / flashMS);
 }
 
-static int
-set_light_backlight(struct light_device_t *dev,
+static int set_light_backlight(struct light_device_t *dev,
         struct light_state_t const *state)
 {
-    int brightness = rgb_to_brightness(state);
+    int brightness = rgb_to_brightness(state->color);
     char buf[128];
-
     int count = snprintf(buf, 128, "%d", brightness);
+    (void)dev;
 
     return write_string(LCD_FILE, buf, count);
 }
 
-static int
-set_light_buttons(struct light_device_t *dev,
+static int set_light_buttons(struct light_device_t *dev,
         struct light_state_t const *state)
 {
     int value[LEDS];
-    int brightness = rgb_to_brightness(state);
-    write_string(LED_PATH "button", brightness ? "1" : "0", 1);
-    write_string(LED_ON_OFF, brightness ? "1" : "0", 1);
+    int brightness = rgb_to_brightness(state->color);
+    (void)dev;
 
-    ALOGD("liblights: set_light_buttons: %d", brightness);
+    write_int(LED_PATH "button", !!brightness);
+    write_int(LED_PATH "touchkey_enabled", !!brightness);
+
     return 0;
 }
 
-static int
-set_light_notifications(struct light_device_t *dev,
+#define min(a, b) (((a) < (b)) ? (a) : (b))
+
+static int set_light_notifications(struct light_device_t *dev,
         struct light_state_t const *state)
 {
     int value[LEDS];
-    struct pattern pattern = pattern_from_light_state(state);
-    enum LED led;
+    struct pattern p = pattern_from_light_state(state);
+    enum KEY_LED led;
     int hour;
-    char pattern_string[256];
-    int written;
+    char buf[256];
+    int o = 0;
+    int ret;
+    (void)dev;
 
-    for (led = LED_FIRST; led <= LED_LAST; ++led) {
-        value[led] = 0x7f * ((state->color >> (4 * (LEDS - 1 - led))) & 0xf) / 15;
+    if (p.special) {
+        int white = RGB_COEFF_AVG(state->color, 87, 169, 0);
+        int blue = state->color & 0xff;
+
+        for (led = KEY_LED_MIN; led <= KEY_LED_MAX; ++led) {
+            value[led] = IS_WHITE(led) ? white : blue;
+        }
+
+        int rl  = (state->color >> 16) & 0xf;
+        int gl = (state->color >> 8) & 0xf;
+        int bl = state->color & 0xf;
+
+        p.slope = rl & 0x3;
+        size_t wave_idx = gl & 0xf;
+        int rtl = bl & 0x1;
+        int invert = bl & 0x2 ? INV : 0;
+
+        wave_idx = wave_idx % ARRAY_SIZE(special_waves);
+
+        for (led = KEY_LED_WMIN; led <= KEY_LED_WMAX; ++led) {
+            enum KEY_LED led_target = rtl ? KEY_LED_WMSUM - led : led;
+
+            p.waves[led_target] = special_waves[wave_idx][led] ^ invert;
+        }
+
+        for (led = KEY_LED_BMIN; led <= KEY_LED_BMAX; ++led) {
+            p.waves[led] = special_waves[wave_idx][led];
+        }
+    } else {
+        struct wb wb = rgb_to_wb(state->color);
+
+        for (led = KEY_LED_MIN; led <= KEY_LED_MAX; ++led) {
+            value[led] = IS_WHITE(led) ? wb.white : wb.blue;
+        }
     }
 
-    written = snprintf(pattern_string, 256, "%d %d %d -",
-                        pattern.cycle, pattern.slope, pattern.slope);
+    ret = snprintf(buf + o, sizeof(buf) - o, "%d %d %d -",
+                        p.cycle, p.slope, p.slope);
 
-    for (led = LED_FIRST; led <= LED_LAST; ++led) {
-        int inv = (unsigned int)pattern.waves[led] & INV;
-        unsigned int wave = (unsigned int)pattern.waves[led] & ~INV;
+    if (ret < 0) {
+        ALOGE("liblights: Couldn't create pattern string\n");
+        return -EINVAL;
+    }
+
+    o += min(sizeof(buf) - o, (size_t)ret);
+
+    for (led = KEY_LED_MIN; led <= KEY_LED_MAX; ++led) {
+        int inv = p.waves[led] & INV;
+        unsigned int wave = p.waves[led] & ~INV;
         unsigned int val = value[led];
         unsigned int val0 = inv & INV ? val : 0;
         unsigned int val1 = !inv ? val : 0;
-        int written2 = snprintf(pattern_string + written, 256 - written, " %u %u %u,", val0, val1, wave);
+        ret = snprintf(buf + o, sizeof(buf) - o,
+            " %u %u %u,", val0 * 100 / 255, val1 * 100 / 255, wave);
 
-        if (written2 < 0) {
+        if (ret < 0) {
             ALOGE("liblights: Couldn't create pattern string\n");
+            return -EINVAL;
         }
-        written += written2;
+
+        o += min(sizeof(buf) - o, (size_t)ret);
     }
-    write_string(LED_PATH "pattern", pattern_string, written);
+
+    write_int(LED_PATH "brightness", 63);
+    write_string(LED_PATH "pattern", buf, o);
+
     return 0;
 }
+
+#define container_of(ptr, type, member) ({ \
+    const typeof( ((type *)0)->member ) *__mptr = (ptr); \
+    (type *)( (char *)__mptr - offsetof(type, member) );})
+
 
 /** Close the lights device */
-static int
-close_lights(struct hw_device_t *dev)
+static int close_lights(struct hw_device_t *dev)
 {
     if (dev) {
-        free(dev);
+        struct light_device_t *ldev =
+            container_of(dev, struct light_device_t, common);
+
+        free(ldev);
     }
     return 0;
 }
-
-
-/******************************************************************************/
 
 static inline int streq(const char* str1, const char* str2)
 {
     return strcmp(str1, str2) == 0;
 }
 
-/**
- * module methods
- */
+struct hw_module_t HAL_MODULE_INFO_SYM;
 
 /** Open a new instance of a lights device using name */
-static int open_lights(const struct hw_module_t* module, char const* name,
-        struct hw_device_t** device)
+static int open_lights(const struct hw_module_t *module, char const *name,
+        struct hw_device_t **device)
 {
     int (*set_light)(struct light_device_t* dev,
             struct light_state_t const* state);
+
+    if (module != &HAL_MODULE_INFO_SYM) {
+        ALOGE("liblights: module pointer is not as expected\n");
+        return -EINVAL;
+    }
+
+    ALOGD("liblights: open_lights called for %s\n", name);
 
     if (streq(LIGHT_ID_BACKLIGHT, name)) {
         set_light = set_light_backlight;
@@ -327,17 +411,26 @@ static int open_lights(const struct hw_module_t* module, char const* name,
     } else if (streq(LIGHT_ID_NOTIFICATIONS, name)) {
         set_light = set_light_notifications;
     } else {
+        ALOGI("liblights: device %s not supported\n", name);
         return -EINVAL;
     }
 
     struct light_device_t *dev = calloc(1, sizeof(struct light_device_t));
 
-    dev->common.tag = HARDWARE_DEVICE_TAG;
-    dev->common.module = module;
-    dev->common.close = close_lights;
+    if (!dev) {
+        ALOGE("liblights: Couldn't alloc light device\n");
+        return -ENOMEM;
+    }
+
+    dev->common = (struct hw_device_t) {
+        .tag = HARDWARE_DEVICE_TAG,
+        .module = &HAL_MODULE_INFO_SYM,
+        .close = close_lights,
+    };
     dev->set_light = set_light;
 
-    *device = (struct hw_device_t*)dev;
+    *device = &dev->common;
+
     return 0;
 }
 
