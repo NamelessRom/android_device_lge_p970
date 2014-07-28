@@ -265,11 +265,11 @@ static int set_light_backlight(struct light_device_t *dev,
         struct light_state_t const *state)
 {
     int brightness = rgb_to_brightness(state->color);
-    char buf[128];
-    int count = snprintf(buf, 128, "%d", brightness);
     (void)dev;
 
-    return write_string(LCD_FILE, buf, count);
+    write_int(LED_PATH "brightness", brightness / 2);
+
+    return write_int(LCD_FILE, brightness);
 }
 
 static int set_light_buttons(struct light_device_t *dev,
