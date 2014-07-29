@@ -218,46 +218,81 @@ on boot
     chmod 0644 /sys/devices/platform/omapdss/manager1/trans_key_value
     chmod 0644 /sys/devices/platform/omapdss/manager0/alpha_blending_enabled
     chmod 0644 /sys/devices/platform/omapdss/manager1/alpha_blending_enabled
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als_option
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als_option
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/onoff
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/onoff
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/alsgain_control
-    chown system system  /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/alsgain_control
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als_control
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als_control
-    chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als
-    chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0060/leds/lcd-backlight/als
     write /sys/devices/platform/omapdss/manager0/alpha_blending_enabled 1
+
     chmod 0664 /sys/devices/platform/i2c_omap.2/i2c-2/2-0036/state
     chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0036/state
-    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/onoff
-    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/onoff
+
+	# bd2802 key leds
+    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/adapt_brightness_delay
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/adapt_brightness_delay
+    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/brightness_mode
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/brightness_mode
+    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/brightness
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/brightness
+    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/brightness_levels
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/brightness_levels
     chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/pattern
     chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/pattern
     chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/button
     chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/button
-    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/pattern_brightness
-    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/pattern_brightness
-    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/button_brightness
-    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/button_brightness
+    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/onoff
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/onoff
+    chmod 0644 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/touchkey_enabled
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/touchkey_enabled
+
+	# bd2802 fade
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/fade/enabled
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/fade/enabled
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/fade/full_ival
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/fade/full_ival
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/fade/ld_offset
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/fade/ld_offset
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/fade/min_step_ival
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/fade/min_step_ival
+
     chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/fw
     chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/fw
     chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/gripsuppression
     chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0020/gripsuppression
-# [START_CommonFramework] sunkyu.yun@lge.com 2012-06-08 light sensor
-    chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_option
-    chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_option
-    chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/onoff
-    chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/onoff
-    chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/alsgain_control
-    chown system system  /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/alsgain_control
-    chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_control
-    chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als_control
-    chmod 0664 /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als
-    chown system system /sys/class/leds/lcd-backlight/als
-    chown system system /sys/bus/i2c/devices/2-0060/leds/lcd-backlight/als
-# [END_CommonFramework] sunkyu.yun@lge.com 2012-06-08 light sensor
+
+	# aat2870
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/adapt_brightness_delay
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/adapt_brightness_delay
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/brightness_mode
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/brightness_mode
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/brightness_levels
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/brightness_levels
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/ld_offset
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/ld_offset
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor_poll_ival_user
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor_poll_ival_user
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor_poll_ival_screen_off
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor_poll_ival_screen_off
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor_poll_ival_sensor
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor_poll_ival_sensor
+
+	# aat2870 ambient light sensor
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor/gain_mode
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor/gain_mode
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor/gain_percentage
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor/gain_percentage
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor/gain_resistor
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor/gain_resistor
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor/poll_ival
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor/poll_ival
+    chmod 0220 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor/trigger_measure
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/sensor/trigger_measure
+
+	# aat2870 fade
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/fade/enabled
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/fade/enabled
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/fade/full_ival
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/fade/full_ival
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/fade/ld_offset
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/fade/ld_offset
+    chmod 0664 /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/fade/min_step_ival
+    chown system system /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/fade/min_step_ival
 
 # Sensor
     chown system system /dev/akm8973_daemon
@@ -447,7 +482,7 @@ service glgps /system/bin/glgps -c /system/etc/gps_brcm_conf.xml
 on property:dev.bootcomplete=1
     start setcpversion
     write /sys/block/mmcblk0/queue/scheduler row
-    write /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/onoff reset
+    write /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/button 0
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -BKAL
     class main
