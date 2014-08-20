@@ -145,6 +145,7 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio_policy.default \
     audio.primary.black \
+    audio.r_submix.default \
     audio.usb.default \
     libaudioutils \
     libemoji \
