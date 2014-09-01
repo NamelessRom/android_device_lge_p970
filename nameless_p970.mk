@@ -5,9 +5,6 @@ TARGET_SCREEN_WIDTH := 480
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-# The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
-
 # Get the prebuilt list of APNs
 $(call inherit-product, vendor/nameless/config/apns.mk)
 
@@ -68,7 +65,8 @@ PRODUCT_COPY_FILES += \
 
 # GPS
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/gps_brcm_conf.xml:system/etc/gps_brcm_conf.xml
+    $(LOCAL_PATH)/configs/gps_brcm_conf.xml:system/etc/gps_brcm_conf.xml \
+    $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf \
 
 # Wifi
 PRODUCT_COPY_FILES += \
