@@ -169,6 +169,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
         dalvik.vm.debug.alloc=0 \
         ro.hwui.disable_scissor_opt=true
 
+# Additional hwui configuration
+PRODUCT_PROPERTY_OVERRIDES += \
+        hwui.use_gpu_pixel_buffers=false \
+        ro.hwui.drop_shadow_cache_size=0.5 \
+        ro.hwui.fbo_cache_size=4 \
+        ro.hwui.r_buffer_cache_size=1 \
+        ro.hwui.text_gamma_correction=shader \
+        ro.hwui.text_large_cache_width=512 \
+        ro.hwui.text_large_cache_height=128 \
+        ro.hwui.text_small_cache_width=256 \
+        ro.hwui.text_small_cache_height=64 \
+        ro.hwui.texture_cache_size=4 \
+
 # Additional Props
 PRODUCT_PROPERTY_OVERRIDES += \
         ro.config.low_ram=true \
