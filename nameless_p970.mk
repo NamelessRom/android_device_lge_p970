@@ -187,6 +187,9 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
         ro.adb.secure=0 \
         ro.secure=0
 
+# Enable Torch
+PRODUCT_PACKAGES += Torch
+
 PRODUCT_AAPT_CONFIG := normal hdpi
 
 PRODUCT_NAME := nameless_p970
