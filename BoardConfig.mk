@@ -22,13 +22,6 @@ TARGET_NO_BOOTLOADER           := true
 TARGET_BOOTLOADER_BOARD_NAME   := black
 TARGET_PROVIDES_INIT_TARGET_RC := true
 
-#TARGET_GCC_VERSION_EXP              := 4.8
-#TARGET_KERNEL_CUSTOM_TOOLCHAIN_FULL := \
-#        prebuilts/gcc/linux-x86/arm/arm-cortex_a8-linux-gnueabi-linaro_4.9.1/bin/arm-gnueabi-
-
-TARGET_GLOBAL_CFLAGS   += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
-
 BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
 BOARD_KERNEL_BASE    := 0x80000000
 BOARD_PAGE_SIZE      := 0x00000800
@@ -61,7 +54,6 @@ BOARD_HAVE_BLUETOOTH                        := true
 BOARD_HAVE_BLUETOOTH_BCM                    := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/p970/bluetooth
 BOARD_BLUEDROID_VENDOR_CONF                 := device/lge/p970/bluetooth/libbt_vndcfg.txt
-#BOARD_HAVE_FM_RADIO                         := true
 
 # ION
 BOARD_HAVE_OLD_ION_API := true
@@ -105,7 +97,6 @@ BOARD_EGL_CFG       := device/lge/p970/configs/egl.cfg
 ENABLE_WEBGL        := true
 USE_OPENGL_RENDERER := true
 
-BOARD_USE_BGRA_8888               := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 
 BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/lge/p970/vibrator.c
@@ -127,6 +118,9 @@ TARGET_USES_CPU_BOOST_HINT := true
 
 # No, we dont want METADATA -.-
 SKIP_SET_METADATA := true
+
+# do not include DSPManager
+USE_DSP_MANAGER := false
 
 # Misc Flags
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/omap/musb-omap2430/musb-hdrc/gadget/lun%d/file"
