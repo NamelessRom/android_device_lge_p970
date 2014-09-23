@@ -242,13 +242,13 @@
         minBitRate="64000" maxBitRate="17000000"
         minFrameWidth="96" maxFrameWidth="1280"
         minFrameHeight="96" maxFrameHeight="1280"
-        minFrameRate="5" maxFrameRate="33" />
+        minFrameRate="5" maxFrameRate="30" />
 
     <VideoEncoderCap name="h263" enabled="true"
         minBitRate="64000" maxBitRate="10000000"
         minFrameWidth="96" maxFrameWidth="1280"
         minFrameHeight="96" maxFrameHeight="1280"
-        minFrameRate="5" maxFrameRate="33" />
+        minFrameRate="5" maxFrameRate="30" />
 
     <VideoEncoderCap name="m4v" enabled="true"
         minBitRate="64000" maxBitRate="10000000"
@@ -267,8 +267,8 @@
         minChannels="1" maxChannels="1" />
 
     <AudioEncoderCap name="aac" enabled="true"
-        minBitRate="8000" maxBitRate="64000"
-        minSampleRate="8000" maxSampleRate="96000"
+        minBitRate="8000" maxBitRate="320000"
+        minSampleRate="8000" maxSampleRate="48000"
         minChannels="1" maxChannels="2" />
 
     <VideoDecoderCap name="wmv" enabled="true" />
