@@ -119,8 +119,5 @@ TARGET_USES_CPU_BOOST_HINT := true
 # No, we dont want METADATA -.-
 SKIP_SET_METADATA := true
 
-# do not include DSPManager
-USE_DSP_MANAGER := false
-
 # Misc Flags
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/omap/musb-omap2430/musb-hdrc/gadget/lun%d/file"

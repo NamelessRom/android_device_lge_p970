@@ -3,6 +3,9 @@ PRODUCT_NO_BOOTANIMATION := true
 TARGET_SCREEN_HEIGHT := 800
 TARGET_SCREEN_WIDTH := 480
 
+# do not include DSPManager
+USE_DSP_MANAGER := false
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # The gps config appropriate for this device
