@@ -578,7 +578,7 @@ service sysinit /system/bin/sysinit
     disabled
 
 # FUSE sdcard daemon for rich permissions (runs as media_rw)
-service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
+service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/sdcard0 /storage/sdcard0
     class late_start
     disabled
 
