@@ -185,11 +185,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
         ro.config.low_ram=true \
         dalvik.vm.jit.codecachesize=0
 
-# adb root
-ADDITIONAL_DEFAULT_PROPERTIES += \
-        ro.adb.secure=0 \
-        ro.secure=0
-
 # Enable Torch
 PRODUCT_PACKAGES += Torch
 
