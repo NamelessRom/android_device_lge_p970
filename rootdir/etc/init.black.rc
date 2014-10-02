@@ -63,24 +63,8 @@ on post-fs-data
     start sysinit
 
 on boot
-    # mount debugfs
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
-
     # Set mpu freq to 1GHz at boot time.
     write /sys/power/vdd1_opp 4
-
-    # Enabling sleep in idle path
-    write /sys/kernel/debug/pm_debug/sleep_while_idle 1
-
-    # Enabling Voltage OFF in idle path
-    write /sys/kernel/debug/pm_debug/voltage_off_while_idle 1
-
-    # Enabling OFF mode
-    write /sys/kernel/debug/pm_debug/enable_off_mode 1
-
-    # Enable SmartReflex autocompensation on VDD1 & VDD2
-    write /sys/kernel/debug/smartreflex/sr_core/autocomp 1
-    write /sys/kernel/debug/smartreflex/sr_mpu_iva/autocomp 1
 
     # PowerHAL perms
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
