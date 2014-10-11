@@ -90,7 +90,9 @@ WIFI_DRIVER_HAS_LGE_SOFTAP       := true
 BOARD_WPA_SUPPLICANT_DRIVER      := WEXT
 TARGET_HAS_LEGACY_WLAN           := true
 
+# HWC
 TARGET_OMAP3_HWC_BOOTLOADER_DISPLAY_INIT := true
+TARGET_OMAP3_HWC_DISABLE_YUV_OVERLAY     := true
 
 BOARD_EGL_CFG       := device/lge/p970/configs/egl.cfg
 ENABLE_WEBGL        := true
