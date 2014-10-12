@@ -32,7 +32,8 @@ on init
 
 on fs
     mount_all fstab.black
-    swapon_all fstab.black
+    # zRam - currently disabled
+    #swapon_all fstab.black
 
 on post-fs-data
     mkdir /data/media 0775 media_rw media_rw
@@ -452,7 +453,7 @@ on boot
     #write /sys/kernel/mm/ksm/run 1
 
     # ZRAM
-    write /proc/sys/vm/page-cluster 0
+    #write /proc/sys/vm/page-cluster 0
 
     # Flash storage isn't a good entropy source, and only causes locking
     # overhead in the kernel. Turn it off.
