@@ -8,5 +8,5 @@
 # sdcard
 /devices/platform/omap/omap_hsmmc.0/mmc_host    auto                auto      defaults,uid=1023,gid=1023,fmask=0007,dmask=0007                        voldmanaged=sdcard0:auto
 
-# zRam
-/dev/block/zram0                                none                swap      defaults                                                                zramsize=134217728
+# zRam - currently disabled
+#/dev/block/zram0                                none                swap      defaults                                                                zramsize=134217728
