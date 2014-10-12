@@ -19,7 +19,7 @@ on init
     # 2012.07.03 youmi.jun : To fix issue when CAMERA IPP enabled
     symlink /system/lib /lib
 
-    # Sdcard
+    # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
     mkdir /storage/sdcard0 0700 root root
 
