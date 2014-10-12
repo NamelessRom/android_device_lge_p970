@@ -19,16 +19,17 @@ on init
     # 2012.07.03 youmi.jun : To fix issue when CAMERA IPP enabled
     symlink /system/lib /lib
 
-    # Sdcard
-    mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
-    mkdir /storage/sdcard0 0700 root root
+    # See storage config details at http://source.android.com/tech/storage/
+    chmod 0701 /mnt/media_rw
+    mkdir /mnt/media_rw/sdcard0 0775 system system
+
+    mkdir /storage/sdcard0 0000 system system
 
     export EXTERNAL_STORAGE /storage/sdcard0
 
     # Support legacy paths
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard0 /mnt/sdcard
-    symlink /storage/sdcard0 /storage/sdcard
 
 on fs
     mount_all fstab.black
@@ -54,6 +55,15 @@ on post-fs-data
     mkdir /data/dalvik-cache 0771 system system
     chown system system /data/dalvik-cache
     chmod 0771 /data/dalvik-cache
+
+    # LGE_UPDATE_S yangwook.lim for usb serial
+    chmod 0777 /dev/ttyGS0
+    chmod 0777 /dev/ttyGS1
+    chmod 0777 /dev/ttyGS2
+
+    chmod 0777 /dev/input/event4
+    chmod 0777 /dev/input/event5
+    chmod 0777 /dev/input/event6
 
     mkdir /data/.ssh 0750 root shell
 
