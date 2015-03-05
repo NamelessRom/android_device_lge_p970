@@ -36,7 +36,6 @@ endif
 TARGET_KERNEL_SOURCE        := kernel/lge/p970
 TARGET_KERNEL_CONFIG        := custom_p970_defconfig
 TARGET_RECOVERY_INITRC      := device/lge/p970/recovery/init.recovery.rc
-TARGET_SPECIFIC_HEADER_PATH := device/lge/p970/include
 
 TARGET_USERIMAGES_USE_EXT4         := true
 BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 665681920
@@ -49,6 +48,7 @@ TARGET_RECOVERY_FSTAB         := device/lge/p970/rootdir/etc/fstab.black
 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
+# TODO: fixup bluetooth
 BOARD_HAVE_BLUETOOTH                        := true
 BOARD_HAVE_BLUETOOTH_BCM                    := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/p970/bluetooth
@@ -94,7 +94,6 @@ TARGET_HAS_LEGACY_WLAN           := true
 TARGET_OMAP3_HWC_BOOTLOADER_DISPLAY_INIT := true
 TARGET_OMAP3_HWC_DISABLE_YUV_OVERLAY     := true
 
-BOARD_EGL_CFG       := device/lge/p970/configs/egl.cfg
 ENABLE_WEBGL        := true
 USE_OPENGL_RENDERER := true
 
@@ -103,9 +102,12 @@ BOARD_EGL_WORKAROUND_BUG_10194508 := true
 BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/lge/p970/vibrator.c
 BOARD_SYSFS_LIGHT_SENSOR          := "/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/brightness_mode\", \"/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/brightness_mode"
 
-COMMON_GLOBAL_CFLAGS           += -DNEEDS_VECTORIMPL_SYMBOLS -DHAS_CONTEXT_PRIORITY
+COMMON_GLOBAL_CFLAGS           += -DHAS_CONTEXT_PRIORITY
 COMMON_GLOBAL_CFLAGS           += -DBOARD_CHARGING_CMDLINE_NAME='"rs"' -DBOARD_CHARGING_CMDLINE_VALUE='"c"'
 BOARD_ALLOW_SUSPEND_IN_CHARGER := true
+
+# Blobs
+TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 ## Radio fixes
 BOARD_RIL_CLASS := ../../../device/lge/p970/ril/
@@ -117,7 +119,10 @@ COMMON_GLOBAL_CFLAGS += -DICS_CAMERA_BLOB -DOMAP_ICS_CAMERA -DCAMERA_LEGACY_HACK
 TARGET_POWERHAL_VARIANT    := cm
 TARGET_USES_CPU_BOOST_HINT := true
 
-# No, we dont want METADATA -.-
+# Our recovery does not support it, even if the syntax is recognized
+# But the current update binary also does not recognize set_perm
+# A workaround for now is to manually replace the update binary with the one from kitkat builds
+# The only proper solution to this is to get a recovery with the new selinux enabled kernel working
 SKIP_SET_METADATA := true
 
 # Misc Flags

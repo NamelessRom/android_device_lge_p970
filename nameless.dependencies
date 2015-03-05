@@ -1,8 +1,8 @@
 [
  {
-   "remote": "nameless",
-   "repository": "android_kernel_lge_p970",
+   "remote": "github",
+   "repository": "NamelessRom/android_kernel_lge_p970",
    "target_path": "kernel/lge/p970",
-   "branch": "android-4.4"
+   "branch": "n-2.0"
  }
 ]
