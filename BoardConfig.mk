@@ -49,10 +49,11 @@ TARGET_RECOVERY_FSTAB         := device/lge/p970/rootdir/etc/fstab.black
 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
-BOARD_HAVE_BLUETOOTH                        := true
-BOARD_HAVE_BLUETOOTH_BCM                    := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/p970/bluetooth
-BOARD_BLUEDROID_VENDOR_CONF                 := device/lge/p970/bluetooth/libbt_vndcfg.txt
+# TODO: fixup bluetooth
+#BOARD_HAVE_BLUETOOTH                        := true
+#BOARD_HAVE_BLUETOOTH_BCM                    := true
+#BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/p970/bluetooth
+#BOARD_BLUEDROID_VENDOR_CONF                 := device/lge/p970/bluetooth/libbt_vndcfg.txt
 
 # ION
 BOARD_HAVE_OLD_ION_API := true
@@ -103,9 +104,12 @@ BOARD_EGL_WORKAROUND_BUG_10194508 := true
 BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/lge/p970/vibrator.c
 BOARD_SYSFS_LIGHT_SENSOR          := "/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/brightness_mode\", \"/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/brightness_mode"
 
-COMMON_GLOBAL_CFLAGS           += -DNEEDS_VECTORIMPL_SYMBOLS -DHAS_CONTEXT_PRIORITY
+COMMON_GLOBAL_CFLAGS           += -DHAS_CONTEXT_PRIORITY
 COMMON_GLOBAL_CFLAGS           += -DBOARD_CHARGING_CMDLINE_NAME='"rs"' -DBOARD_CHARGING_CMDLINE_VALUE='"c"'
 BOARD_ALLOW_SUSPEND_IN_CHARGER := true
+
+# Blobs
+TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 ## Radio fixes
 BOARD_RIL_CLASS := ../../../device/lge/p970/ril/
