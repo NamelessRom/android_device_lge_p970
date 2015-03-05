@@ -1,21 +1,12 @@
 # Boot animation
-PRODUCT_NO_BOOTANIMATION := true
 TARGET_SCREEN_HEIGHT := 800
 TARGET_SCREEN_WIDTH := 480
 
-# do not include DSPManager
-USE_DSP_MANAGER := false
-
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
-
-# Get the prebuilt list of APNs
-$(call inherit-product, vendor/nameless/config/apns.mk)
-
-# Inherit from the common Open Source product configuration
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/nameless/config/common.mk)
@@ -41,10 +32,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml
-
-# init.d scripts
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/etc/init.d/10app2sd:system/etc/init.d/10app2sd
 
 # Permission files
 PRODUCT_COPY_FILES += \
@@ -93,7 +80,6 @@ PRODUCT_COPY_FILES += \
 
 # Charger mode
 PRODUCT_PACKAGES += \
-    charger \
     charger_res_images
 
 PRODUCT_PACKAGES += \
@@ -159,8 +145,6 @@ PRODUCT_PACKAGES += \
     libtiutils \
     lights.black
 
-$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
-
 # Fix Graphics Issues
 PRODUCT_PROPERTY_OVERRIDES += \
         ro.zygote.disable_gl_preload=true \
@@ -191,10 +175,9 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
         ro.adb.secure=0 \
         ro.secure=0
 
-# Enable Torch
-PRODUCT_PACKAGES += Torch
-
+# Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal hdpi
+PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 PRODUCT_NAME := nameless_p970
 PRODUCT_RELEASE_NAME := OptimusBlack
@@ -202,3 +185,5 @@ PRODUCT_DEVICE := p970
 PRODUCT_BRAND := LGE
 PRODUCT_MANUFACTURER := LGE
 PRODUCT_MODEL := LG-P970
+
+$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)

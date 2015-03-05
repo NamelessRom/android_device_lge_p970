@@ -1,12 +1,17 @@
-import init.black.usb.rc
+import /init.black.usb.rc
 
 on early-init
     export ANDROID_CACHE /cache
     write /sys/block/mmcblk0/queue/scheduler noop
 
     # Increase readahead buffers on MMC devices
-    write /sys/block/mmcblk0/bdi/read_ahead_kb 2048
-    write /sys/block/mmcblk1/bdi/read_ahead_kb 2048
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 512
+    write /sys/block/mmcblk1/bdi/read_ahead_kb 512
+
+on fs
+    mount_all /fstab.black
+    # zRam - currently disabled
+    #swapon_all fstab.black
 
 on init
     export DSP_PATH /system/lib/dsp
@@ -20,24 +25,19 @@ on init
     symlink /system/lib /lib
 
     # Sdcard
-    mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
-    mkdir /storage/sdcard0 0700 root root
+    mkdir /storage 0550 system sdcard_r
+    mkdir /mnt/media_rw/sdcard0 0755 media_rw media_rw
 
     export EXTERNAL_STORAGE /storage/sdcard0
+
+    mkdir /storage/sdcard0 0700 root root
 
     # Support legacy paths
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard0 /mnt/sdcard
-    symlink /storage/sdcard0 /storage/sdcard
-
-on fs
-    mount_all fstab.black
-    # zRam - currently disabled
-    #swapon_all fstab.black
 
 on post-fs-data
-    mkdir /data/media 0775 media_rw media_rw
-    chown media_rw media_rw /data/media
+    mkdir /data/media 0770 media_rw media_rw
 
     # Create the directories used by the Wireless subsystem
     mkdir /data/misc/wifi 0770 wifi wifi
@@ -493,8 +493,13 @@ service glgps /system/bin/glgps -c /system/etc/gps_brcm_conf.xml
 
 on property:dev.bootcomplete=1
     start setcpversion
-    write /sys/block/mmcblk0/queue/scheduler row
     write /sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/button 0
+
+    write /sys/block/mmcblk0/queue/scheduler row
+
+    # Flash storage isn't a good entropy source, and only causes locking
+    # overhead in the kernel. Turn it off.
+    write /sys/block/mmcblk0/queue/add_random 0
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
     class main
@@ -585,11 +590,10 @@ service setcpversion /system/bin/lgcpversion
     class main
     oneshot
 
-service charger /charger
+service charger /sbin/healthd -c
     class charger
-    user root
-    group root
-    oneshot
+    critical
+    seclabel u:r:healthd:s0
 
 # sysinit (/system/etc/init.d)
 service sysinit /system/bin/sysinit
@@ -598,7 +602,7 @@ service sysinit /system/bin/sysinit
     disabled
 
 # FUSE sdcard daemon for rich permissions (runs as media_rw)
-service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/sdcard0 /storage/sdcard0
+service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/sdcard0 /storage/sdcard0
     class late_start
     disabled
 
