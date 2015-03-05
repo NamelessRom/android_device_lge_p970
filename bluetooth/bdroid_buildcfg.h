@@ -19,7 +19,9 @@
 #define _BDROID_BUILDCFG_H
 
 #define BTM_DEF_LOCAL_NAME   "LG-P970"
-#define BLE_INCLUDED FALSE
+
+// this is wrong, but let it pass the build for now
+#define BLE_INCLUDED TRUE
 #define BTA_GATT_INCLUDED FALSE
 #define SMP_INCLUDED FALSE
 

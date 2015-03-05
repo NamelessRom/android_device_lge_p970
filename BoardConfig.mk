@@ -36,7 +36,6 @@ endif
 TARGET_KERNEL_SOURCE        := kernel/lge/p970
 TARGET_KERNEL_CONFIG        := custom_p970_defconfig
 TARGET_RECOVERY_INITRC      := device/lge/p970/recovery/init.recovery.rc
-TARGET_SPECIFIC_HEADER_PATH := device/lge/p970/include
 
 TARGET_USERIMAGES_USE_EXT4         := true
 BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 665681920
@@ -49,6 +48,7 @@ TARGET_RECOVERY_FSTAB         := device/lge/p970/rootdir/etc/fstab.black
 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
+# TODO: fixup bluetooth
 BOARD_HAVE_BLUETOOTH                        := true
 BOARD_HAVE_BLUETOOTH_BCM                    := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/p970/bluetooth
@@ -103,9 +103,12 @@ BOARD_EGL_WORKAROUND_BUG_10194508 := true
 BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/lge/p970/vibrator.c
 BOARD_SYSFS_LIGHT_SENSOR          := "/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-0060/brightness_mode\", \"/sys/devices/platform/omap/omap_i2c.2/i2c-2/2-001a/brightness_mode"
 
-COMMON_GLOBAL_CFLAGS           += -DNEEDS_VECTORIMPL_SYMBOLS -DHAS_CONTEXT_PRIORITY
+COMMON_GLOBAL_CFLAGS           += -DHAS_CONTEXT_PRIORITY
 COMMON_GLOBAL_CFLAGS           += -DBOARD_CHARGING_CMDLINE_NAME='"rs"' -DBOARD_CHARGING_CMDLINE_VALUE='"c"'
 BOARD_ALLOW_SUSPEND_IN_CHARGER := true
+
+# Blobs
+TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 ## Radio fixes
 BOARD_RIL_CLASS := ../../../device/lge/p970/ril/
@@ -117,8 +120,9 @@ COMMON_GLOBAL_CFLAGS += -DICS_CAMERA_BLOB -DOMAP_ICS_CAMERA -DCAMERA_LEGACY_HACK
 TARGET_POWERHAL_VARIANT    := cm
 TARGET_USES_CPU_BOOST_HINT := true
 
-# No, we dont want METADATA -.-
+# No, we dont want all that new fancy stuff -.-
 SKIP_SET_METADATA := true
+BLOCK_BASED_OTA   := false
 
 # Misc Flags
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/omap/musb-omap2430/musb-hdrc/gadget/lun%d/file"
