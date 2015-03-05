@@ -73,10 +73,6 @@
         <item>"bt-pan"</item>
     </string-array>
 
-    <!-- Boolean indicating whether the start command should be called on the wireless interface
-                  when starting the SoftAp -->
-    <bool name="config_wifiApStartInterface">true</bool>
-
     <!-- Default color for notification LED. -->
     <color name="config_defaultNotificationColor">#ff0000ff</color>
 
