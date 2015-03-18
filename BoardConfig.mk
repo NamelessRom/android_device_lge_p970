@@ -33,6 +33,7 @@ COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP3 -DOMAP_ENHANCEMENT_CPC
 endif
 
 # Kernel
+BOARD_CUSTOM_BOOTIMG_MK     := device/lge/p970/mkbootimg.mk
 TARGET_KERNEL_SOURCE        := kernel/lge/p970
 TARGET_KERNEL_CONFIG        := custom_p970_defconfig
 TARGET_RECOVERY_INITRC      := device/lge/p970/recovery/init.recovery.rc
