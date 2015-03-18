@@ -179,7 +179,7 @@ int gr_measure(const char *s)
     return gr_font->cwidth * strlen(s);
 }
 
-int gr_text(int x, int y, const char *s, int bold)
+int gr_text(int x, int y, const char *s, ...)
 {
     return gr_text_impl(x, y, s, 0);
 }
@@ -355,4 +355,11 @@ void gr_font_size(int *x, int *y)
 {
     *x = gr_font->cwidth;
     *y = gr_font->cheight;
+}
+
+// These are new graphics functions from 5.0 that were not available in
+// 4.4 that are required by charger and healthd
+void gr_clear()
+{
+    return;
 }

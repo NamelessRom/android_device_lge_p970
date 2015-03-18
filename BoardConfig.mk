@@ -35,19 +35,12 @@ endif
 # Kernel
 TARGET_KERNEL_SOURCE        := kernel/lge/p970
 TARGET_KERNEL_CONFIG        := custom_p970_defconfig
-TARGET_RECOVERY_INITRC      := device/lge/p970/recovery/init.recovery.rc
 TARGET_SPECIFIC_HEADER_PATH := device/lge/p970/include
 
 TARGET_USERIMAGES_USE_EXT4         := true
 BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 665681920
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 1170259968
 BOARD_FLASH_BLOCK_SIZE             := 131072
-
-BOARD_CUSTOM_GRAPHICS         := ../../../device/lge/p970/recovery/graphics.c
-#TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_RECOVERY_FSTAB         := device/lge/p970/rootdir/etc/fstab.black
-
-BOARD_HAS_NO_SELECT_BUTTON := true
 
 BOARD_HAVE_BLUETOOTH                        := true
 BOARD_HAVE_BLUETOOTH_BCM                    := true
@@ -117,8 +110,24 @@ COMMON_GLOBAL_CFLAGS += -DICS_CAMERA_BLOB -DOMAP_ICS_CAMERA -DCAMERA_LEGACY_HACK
 TARGET_POWERHAL_VARIANT    := cm
 TARGET_USES_CPU_BOOST_HINT := true
 
-# No, we dont want METADATA -.-
-SKIP_SET_METADATA := true
-
 # Misc Flags
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/omap/musb-omap2430/musb-hdrc/gadget/lun%d/file"
+
+# Recovery
+RECOVERY_VARIANT := twrp
+
+DEVICE_RESOLUTION                 := 480x800
+BOARD_USES_BML_OVER_MTD           := true
+BOARD_HAS_NO_SELECT_BUTTON        := true
+#RECOVERY_GRAPHICS_USE_LINELENGTH := true
+#TW_NO_SCREEN_BLANK                := true
+TARGET_RECOVERY_PIXEL_FORMAT      := "RGBX_8888"
+BOARD_CUSTOM_GRAPHICS             := ../../../device/lge/p970/recovery/graphics.c
+TARGET_RECOVERY_FSTAB             := device/lge/p970/rootdir/etc/fstab.black
+
+TW_NO_REBOOT_BOOTLOADER := true
+
+TW_EXCLUDE_ENCRYPTED_BACKUPS := true
+TW_EXCLUDE_SUPERSU           := true
+TW_NO_EXFAT                  := true
+TW_EXCLUDE_MTP               := true
