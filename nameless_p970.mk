@@ -24,14 +24,12 @@ $(call inherit-product-if-exists, vendor/lge/p970/p970-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/lge/p970/overlay
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
-
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.black \
     init.black.rc \
     init.black.usb.rc \
+    twrp.fstab \
     ueventd.black.rc
 
 # Alsa configs
